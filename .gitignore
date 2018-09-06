@@ -1,12 +1,30 @@
+# IDE folders & files
+.vs/
+.idea/
+.user
+.suo
+.cache
+
 # Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+bin/
+obj/
+csx/
+.exe
+.exe~
+.dll
+.so
+.dylib
 
 # Test binary, build with `go test -c`
-*.test
+[Tt]est[Rr]esult*
+.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
-*.out
+.out
+
+# Package folders
+packages/
+node_modules/
+
+# Log files & folders
+.log
