@@ -88,8 +88,8 @@ namespace GCBurn.BurnTest
         {
             TryInitialize();
             GC.Collect();
-            
             var duration = Duration.TotalSeconds;
+            
             using (Writer.Section($"Test settings:")) {
                 Writer.AppendMetric("Duration", duration, "s");
                 Writer.AppendMetric("Thread count", ThreadCount, "");

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using CommandLine;
 using Benchmarking.Common;
 using GCBurn.BurnTest;
-using GCBurn.AllocationSpeedTest;
+using GCBurn.SpeedTest;
 
 namespace GCBurn 
 {
@@ -82,12 +82,12 @@ namespace GCBurn
             var ramSize = testedRamSize.Value * Sizes.GB;
 
             // Finally, running the test
-            AllocationSpeedTester allocationSpeedTester;
+            SpeedTester speedTester;
             BurnTester burnTester;
             using (Writer.Section("Warming up...")) {
-                allocationSpeedTester = AllocationSpeedTester.NewWarmup();
-                allocationSpeedTester.Run();
-                allocationSpeedTester = null;
+                speedTester = SpeedTester.NewWarmup();
+                speedTester.Run();
+                speedTester = null;
                 // Pre-allocating ~ a bit more than expected in future
                 // to make GC to adjust for future alloc. pattern.
                 // Not sure if it works at all -- just guessing.
@@ -104,8 +104,8 @@ namespace GCBurn
             Writer.AppendLine();
             Writer.AppendLine("--- Raw allocation (w/o holding what's allocated) ---");
             Writer.AppendLine();
-            allocationSpeedTester = AllocationSpeedTester.New();
-            allocationSpeedTester.Run();
+            speedTester = SpeedTester.New();
+            speedTester.Run();
 
             Writer.AppendLine();
             Writer.AppendLine("--- Caching / compute server (static set = 50% RAM) ---");

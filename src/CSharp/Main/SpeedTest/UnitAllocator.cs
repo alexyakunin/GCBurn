@@ -1,14 +1,14 @@
 using System;
 using System.Diagnostics;
 
-namespace GCBurn.AllocationSpeedTest
+namespace GCBurn.SpeedTest
 {
     public class UnitAllocator
     {
         public class Unit { long Field1, Field2, Field3; }
 
         public const long UnitSize = 3 * sizeof(long);
-        public const int StepSize = 10;
+        public const int StepSize = 50;
         public long AllocationCount = 0;
 
         private object _sink;

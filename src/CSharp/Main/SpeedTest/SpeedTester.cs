@@ -1,23 +1,22 @@
 using System;
 using System.CodeDom.Compiler;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using Benchmarking.Common;
 using GCBurn.BurnTest;
 
-namespace GCBurn.AllocationSpeedTest 
+namespace GCBurn.SpeedTest 
 {
-    public class AllocationSpeedTester
+    public class SpeedTester
     {
-        public static TimeSpan DefaultDuration = TimeSpan.FromSeconds(5);
+        public static TimeSpan DefaultDuration = TimeSpan.FromSeconds(1);
         public TimeSpan Duration = DefaultDuration;
         public int ThreadCount = Environment.ProcessorCount;
         public IndentedTextWriter Writer = new IndentedTextWriter(Console.Out, "  ");
         
-        public static AllocationSpeedTester New() => new AllocationSpeedTester();
-        public static AllocationSpeedTester NewWarmup() => new AllocationSpeedTester() {
+        public static SpeedTester New() => new SpeedTester();
+        public static SpeedTester NewWarmup() => new SpeedTester() {
             Duration = TimeSpan.FromSeconds(1), 
             Writer = new IndentedTextWriter(TextWriter.Null),
         };
@@ -25,8 +24,8 @@ namespace GCBurn.AllocationSpeedTest
         public void Run()
         {
             GC.Collect();
-
             var duration = Duration.TotalSeconds;
+
             using (Writer.Section($"Test settings:")) {
                 Writer.AppendMetric("Duration", duration, "s");
                 Writer.AppendMetric("Thread count", ThreadCount, "");
