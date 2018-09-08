@@ -18,7 +18,6 @@ const AllocationSequenceLength = 1 << 20 // 2^20, i.e. ~ 1M items; must be a pow
 const MinSize = 1
 const MaxSize = 1 << 17 // 128KB
 const TimeSamplerFrequency = 1000000
-const TimeSamplerUnitInSeconds = 1.0 / TimeSamplerFrequency
 const MaxTime = 1000 * TimeSamplerFrequency // 1000 seconds
 
 var MinGCPause = time.Duration(10 * time.Microsecond).Nanoseconds()
@@ -64,8 +63,8 @@ func (t *BurnTester) TryInitialize() {
 
 	sizeSampler := Truncate(CreateStandardSizeSampler(t.Random), MinSize, MaxSize)
 	timeSampler := Truncate(CreateStandardTimeSampler(t.Random), 0, MaxTime)
-	releaseCycleTimeInSeconds := Giga / NanosecondsPerReleaseCycle
-	timeFactor := TimeSamplerUnitInSeconds / releaseCycleTimeInSeconds
+	releaseCycleTimeInSeconds := NanosecondsPerReleaseCycle * Nano
+	timeFactor := (1.0 / TimeSamplerFrequency) / releaseCycleTimeInSeconds
 	for i := 0; i < AllocationSequenceLength; i++ {
 		size := int32(sizeSampler.Sample())
 		arraySize := ByteSizeToArraySize(size)
@@ -100,10 +99,11 @@ func (t *BurnTester) TryInitialize() {
 func (t *BurnTester) Run() {
 	t.TryInitialize()
 	runtime.GC()
+	duration := t.Duration.Seconds()
 
 	if !t.NoOutput {
 		fmt.Printf("Test settings:\n")
-		fmt.Printf("  Duration:     %v second(memStatsBefore)\n", int(t.Duration.Seconds()))
+		fmt.Printf("  Duration:     %v s\n", int(duration))
 		fmt.Printf("  Thread count: %v\n", t.ThreadCount)
 		fmt.Printf("  Static set:\n")
 		fmt.Printf("    Total size:     %.3f GB\n", float64(t.StaticSetSize)/GB)
@@ -112,10 +112,10 @@ func (t *BurnTester) Run() {
 	}
 
 	var done = make(chan bool)
-	var allocators []*Allocator
+	var allocators []*GarbageAllocator
 	var startTime = float64(time.Now().UnixNano())
 	for i := 0; i < t.ThreadCount; i++ {
-		allocators = append(allocators, NewAllocator(t.Allocations, t.StartIndexes[i]))
+		allocators = append(allocators, NewGarbageAllocator(t.Allocations, t.StartIndexes[i]))
 	}
 
 	memStatsBefore := new(runtime.MemStats)
@@ -163,13 +163,11 @@ func (t *BurnTester) Run() {
 	var allocationHoldDurations []float64
 	for _, a := range allocators {
 		for _, ai := range a.Allocations {
-			t := math.Pow(10, float64(ai.BucketIndex)) * float64(ai.GenerationIndex) * (Giga / NanosecondsPerReleaseCycle) * NanoToMilliseconds
+			t := math.Pow(10, float64(ai.BucketIndex)) * float64(ai.GenerationIndex) * NanosecondsPerReleaseCycle * NanoToMilliseconds
 			allocationHoldDurations = append(allocationHoldDurations, t)
 			allocationSizes = append(allocationSizes, float64(ArraySizeToByteSize(ai.ArraySize)))
 		}
 	}
-
-	sec := t.Duration.Seconds()
 
 	fmt.Printf("Allocation speed:\n")
 	var ops, bytes int64
@@ -177,8 +175,8 @@ func (t *BurnTester) Run() {
 		ops += a.AllocationCount
 		bytes += a.ByteCount
 	}
-	fmt.Printf("  Operations per second: %.2f M/memStatsBefore\n", float64(ops)/sec/Mega)
-	fmt.Printf("  Bytes per second:      %.2f GB/memStatsBefore\n", float64(bytes)/sec/GB)
+	fmt.Printf("  Operations per second: %.2f M/s\n", float64(ops)/duration/Mega)
+	fmt.Printf("  Bytes per second:      %.2f GB/s\n", float64(bytes)/duration/GB)
 	fmt.Printf("  Allocation stats:\n")
 	fmt.Printf("    Size:\n")
 	DumpArrayStats(allocationSizes, "B", "      ", true)
@@ -187,11 +185,11 @@ func (t *BurnTester) Run() {
 	fmt.Println()
 	fmt.Printf("GC stats:\n")
 	fmt.Printf("  RAM used:              %.3f -> %.3f GB\n", float64(memStatsBefore.Alloc)/GB, float64(memStatsAfter.Alloc)/GB)
-	fmt.Printf("  GC rate:               %.3f /s\n", float64(memStatsAfter.NumGC-memStatsBefore.NumGC)/sec)
-	fmt.Printf("  Allocation rate:       %.3f GB/s\n", float64(memStatsAfter.TotalAlloc-memStatsBefore.TotalAlloc)/sec/GB)
-	fmt.Printf("  Free rate:             %.3f GB/s\n", float64(memStatsAfter.Frees-memStatsBefore.Frees)/sec/GB)
+	fmt.Printf("  GC rate:               %.3f /s\n", float64(memStatsAfter.NumGC-memStatsBefore.NumGC)/duration)
+	fmt.Printf("  Allocation rate:       %.3f GB/s\n", float64(memStatsAfter.TotalAlloc-memStatsBefore.TotalAlloc)/duration/GB)
+	fmt.Printf("  Free rate:             %.3f GB/s\n", float64(memStatsAfter.Frees-memStatsBefore.Frees)/duration/GB)
 	fmt.Printf("  Global pauses:\n")
-	fmt.Printf("    %% of time frozen:   %.3f %%\n", globalPausesSum/1000/sec*100)
-	fmt.Printf("    # per second:        %.3f /s\n", float64(len(globalPauses))/sec)
+	fmt.Printf("    %% of time frozen:   %.3f %%\n", globalPausesSum/1000/duration*100)
+	fmt.Printf("    # per second:        %.3f /s\n", float64(len(globalPauses))/duration)
 	DumpArrayStats(globalPauses, "ms", "      ", true)
 }

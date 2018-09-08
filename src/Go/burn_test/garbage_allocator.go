@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type Allocator struct {
+type GarbageAllocator struct {
 	Allocations   []AllocationInfo
 	StartIndex    int32
 	GarbageHolder *GarbageHolder
@@ -23,8 +23,8 @@ type AllocationInfo struct {
 	GenerationIndex int8
 }
 
-func NewAllocator(ai []AllocationInfo, startIndex int32) *Allocator {
-	a := &Allocator{}
+func NewGarbageAllocator(ai []AllocationInfo, startIndex int32) *GarbageAllocator {
+	a := &GarbageAllocator{}
 	a.Allocations = ai
 	a.StartIndex = startIndex
 	a.GarbageHolder = NewGarbageHolder()
@@ -47,7 +47,7 @@ func CreateGarbage(arraySize int32) []int64 {
 	return make([]int64, arraySize)
 }
 
-func (a *Allocator) Run(duration time.Duration, done chan bool) {
+func (a *GarbageAllocator) Run(duration time.Duration, done chan bool) {
 	allocations := a.Allocations
 	gh := a.GarbageHolder
 	gcPauses := a.GCPauses
