@@ -131,7 +131,9 @@ namespace GCBurn.BurnTest
                 .SelectMany(a => a.GCPauses
                     .GroupBy(p => Math.Floor(p.Start / 1000))
                     .Select(g => (double) g.Count())
-                ).ToArray();
+                )
+                .OrderBy(c => c)
+                .ToArray();
             var globalPauses = allocators
                 .Select(a => a.GCPauses)
                 .IntersectSortedTuples()
