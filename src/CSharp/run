@@ -1,4 +1,4 @@
 #! /bin/bash
-pushd "${0%/*}"
+pushd "${0%/*}" >/dev/null
 dotnet run -p App/GCBurn.App.csproj -c Release -- $@
-popd
+popd >/dev/null

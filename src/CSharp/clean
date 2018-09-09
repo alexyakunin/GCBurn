@@ -1,5 +1,5 @@
 #! /bin/bash
-pushd "${0%/*}"
+pushd "${0%/*}" >/dev/null
 rm -r App/bin
 rm -r App/obj
-popd
+popd >/dev/null

@@ -1,8 +1,8 @@
 #! /bin/bash
-pushd "${0%/*}"
+pushd "${0%/*}" >/dev/null
 
-pushd CSharp
+pushd CSharp >/dev/null
 ./clean $@
-popd
+popd >/dev/null
 
-popd
+popd >/dev/null

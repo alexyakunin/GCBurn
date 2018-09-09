@@ -1,4 +1,4 @@
 #! /bin/bash
-pushd "${0%/*}"
+pushd "${0%/*}" >/dev/null
 go run app.go $@
-popd
+popd >/dev/null

@@ -1,12 +1,12 @@
 #! /bin/bash
-pushd "${0%/*}"
+pushd "${0%/*}" >/dev/null
 
-pushd Go
+pushd Go >/dev/null
 ./run $@
-popd
+popd >/dev/null
 
-pushd CSharp
+pushd CSharp >/dev/null
 ./run $@
-popd
+popd >/dev/null
 
-popd
+popd >/dev/null
