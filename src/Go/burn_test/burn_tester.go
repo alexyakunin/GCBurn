@@ -118,12 +118,12 @@ func (t *BurnTester) Run() {
 
 	runner := NewParallelRunner(func(i int) IActivity { return NewGarbageAllocator(t.Duration, t.Allocations, t.StartIndexes[i]) })
 
-	memStatsBefore := new(runtime.MemStats)
-	runtime.ReadMemStats(memStatsBefore)
+	msPre := new(runtime.MemStats)
+	runtime.ReadMemStats(msPre)
 	startTime := float64(Nanotime().Nanoseconds())
 	activities := runner.Run()
-	memStatsAfter := new(runtime.MemStats)
-	runtime.ReadMemStats(memStatsAfter)
+	msPost := new(runtime.MemStats)
+	runtime.ReadMemStats(msPost)
 
 	// Slice item casting
 	allocators := make([]*GarbageAllocator, 0)
@@ -182,12 +182,17 @@ func (t *BurnTester) Run() {
 	DumpArrayStats(allocationHoldDurations, "ms", "      ", true)
 	fmt.Println()
 	fmt.Printf("GC stats:\n")
-	fmt.Printf("  RAM used:              %.3f -> %.3f GB\n", float64(memStatsBefore.Alloc)/GB, float64(memStatsAfter.Alloc)/GB)
-	fmt.Printf("  GC rate:               %.3f /s\n", float64(memStatsAfter.NumGC-memStatsBefore.NumGC)/duration)
-	fmt.Printf("  Allocation rate:       %.3f GB/s\n", float64(memStatsAfter.TotalAlloc-memStatsBefore.TotalAlloc)/duration/GB)
-	fmt.Printf("  Free rate:             %.3f GB/s\n", float64(memStatsAfter.Frees-memStatsBefore.Frees)/duration/GB)
+	fmt.Printf("  RAM used:              %.3f -> %.3f GB\n", float64(msPre.HeapAlloc)/GB, float64(msPost.HeapAlloc)/GB)
+	fmt.Printf("  GC rate:               %.3f /s\n", float64(msPost.NumGC-msPre.NumGC)/duration)
+	fmt.Printf("  Allocation rate:\n")
+	fmt.Printf("    Objects:             %.3f M/s, %.3f M/s freed\n",
+		float64(msPost.Mallocs-msPre.Mallocs)/duration/Mega,
+		float64(msPost.Frees-msPre.Frees)/duration/Mega)
+	fmt.Printf("    Bytes:               %.3f GB/s\n", float64(msPost.TotalAlloc-msPre.TotalAlloc)/duration/GB)
 	fmt.Printf("  Global pauses:\n")
-	fmt.Printf("    %% of time frozen:    %.3f %%\n", globalPausesSum/1000/duration*100)
+	fmt.Printf("    %% of time frozen:    %.3f %%, %.3f %% as reported by runtime\n",
+		globalPausesSum/1000/duration*100,
+		float64(msPost.PauseTotalNs-msPre.PauseTotalNs)/Giga/duration*100)
 	fmt.Printf("    # per second:        %.3f /s\n", float64(len(globalPauses))/duration)
 	DumpArrayStats(globalPauses, "ms", "      ", true)
 	fmt.Println()
