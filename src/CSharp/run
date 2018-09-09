@@ -1,4 +1,4 @@
 #! /bin/bash
-pushd "$(dirname "$0")"
+pushd "${0%/*}"
 dotnet run -p App/GCBurn.App.csproj -c Release -- $@
 popd
