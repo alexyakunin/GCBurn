@@ -12,6 +12,7 @@ import (
 func main() {
 	var ramSizeGbFlag = flag.Int64("m", 4, "RAM size, GB")
 	var durationSecFlag = flag.Int64("d", 10, "Test pass duration, seconds")
+	var _ = flag.String("l", "", "Latency mode (ignored for Go)")
 	flag.Parse()
 	ramSizeGb := *ramSizeGbFlag
 	bt.DefaultDuration = time.Duration(*durationSecFlag * int64(time.Second))
