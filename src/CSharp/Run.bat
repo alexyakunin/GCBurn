@@ -7,6 +7,7 @@ set COMPlus_gcConcurrent=1
 set COMPlus_GCLatencyLevel=0
 rem set COMPlus_GCLatencyMode=1
 set COMPlus_GCCpuGroup=1
+set COMPlus_Thread_UseAllCpuGroups=1
 set COMPlus_GCRetainVM=1
 
 goto :skipLogging
