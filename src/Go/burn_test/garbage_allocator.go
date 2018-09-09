@@ -19,7 +19,7 @@ type GarbageAllocator struct {
 }
 
 type AllocationInfo struct {
-	ArraySize       int32 // in 8 byte words (ints)
+	ArraySize       int32
 	BucketIndex     int8
 	GenerationIndex int8
 }
@@ -30,6 +30,7 @@ func NewGarbageAllocator(runDuration time.Duration, allocations []AllocationInfo
 		Allocations:   allocations,
 		StartIndex:    startIndex,
 		GarbageHolder: NewGarbageHolder(),
+		GCPauses:      make([]Interval, 0, int32(runDuration.Seconds()*3000)), // No reallocations during the test
 	}
 	return a
 }

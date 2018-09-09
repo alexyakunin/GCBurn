@@ -23,13 +23,14 @@ namespace GCBurn.BurnTest
         // Statistics
         public long AllocationCount;
         public long ByteCount;
-        public List<Interval> GCPauses = new List<Interval>(1000); 
+        public List<Interval> GCPauses; 
 
         public GarbageAllocator(TimeSpan runDuration, (int, sbyte, sbyte)[] allocations, int startIndex)
         {
             RunDuration = runDuration;
             Allocations = allocations;
             StartIndex = startIndex;
+            GCPauses = new List<Interval>((int) (runDuration.TotalSeconds * 3000)); // No reallocations during the test
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
