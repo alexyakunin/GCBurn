@@ -1,5 +1,5 @@
 @echo off
 pushd "%~dp0"
-rmdir /S App\bin
-rmdir /S App\obj
+rmdir /S /Q App\bin
+rmdir /S /Q App\obj
 popd
