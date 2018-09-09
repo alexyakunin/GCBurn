@@ -43,8 +43,8 @@ namespace GCBurn.SpeedTest
             var totalSizeWithOverhead = totalCount * (UnitAllocator.UnitSize + GarbageAllocator.ObjectSize);
             using (Writer.Section($"Allocation speed:")) {
                 Writer.AppendMetric("Operations per second", totalCount / Sizes.Mega / duration, "M/s");
-                Writer.AppendMetric("Bytes per second", totalSize  / duration / Sizes.GB, "GB/s");
-                Writer.AppendMetric("Bytes per second (incl. overhead)", totalSizeWithOverhead  / duration / Sizes.GB, "GB/s");
+//                Writer.AppendMetric("Bytes per second", totalSize  / duration / Sizes.GB, "GB/s");
+//                Writer.AppendMetric("Bytes per second (incl. overhead)", totalSizeWithOverhead  / duration / Sizes.GB, "GB/s");
             }
             Writer.AppendLine();
         }

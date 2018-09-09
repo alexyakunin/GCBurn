@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-const UnitSize = 24
+//const UnitSize = 16
 const StepSize = 50
 
 type UnitAllocator struct {
@@ -18,7 +18,6 @@ type UnitAllocator struct {
 type AllocationUnit struct {
 	Field1 int64
 	Field2 int64
-	Field3 int64
 }
 
 func NewUnitAllocator(runDuration time.Duration) *UnitAllocator {

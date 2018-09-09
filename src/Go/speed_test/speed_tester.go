@@ -66,10 +66,8 @@ func (t *SpeedTester) Run() {
 		return
 	}
 
-	totalSize := totalCount * UnitSize
-
 	fmt.Printf("Allocation speed:\n")
-	fmt.Printf("  Operations per second: %.2f M/s\n", float64(totalCount)/duration/Mega)
-	fmt.Printf("  Bytes per second:      %.2f GB/s\n", float64(totalSize)/duration/GB)
+	fmt.Printf("  Operations per second: %.3f M/s\n", float64(totalCount)/duration/Mega)
+	//fmt.Printf("  Bytes per second:      %.3f GB/s\n", float64(totalCount * UnitSize)/duration/GB)
 	fmt.Println()
 }

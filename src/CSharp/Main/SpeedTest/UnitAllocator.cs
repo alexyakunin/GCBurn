@@ -7,10 +7,10 @@ namespace GCBurn.SpeedTest
     public class UnitAllocator : IActivity
     {
 #pragma warning disable 169
-        public class Unit { long Field1, Field2, Field3; }
+        public class Unit { long Field1, Field2; }
 #pragma warning restore 169
 
-        public const long UnitSize = 3 * sizeof(long);
+        public const long UnitSize = 2 * sizeof(long);
         public const int StepSize = 50;
         public TimeSpan RunDuration = TimeSpan.Zero;
         public long AllocationCount = 0;
