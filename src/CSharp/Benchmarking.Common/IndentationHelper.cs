@@ -64,8 +64,8 @@ namespace Benchmarking.Common
         
         public static IndentedTextWriter AppendValue(this IndentedTextWriter writer, string name, string value)
         {
-            var formattedName = string.Format($"{{0,-{Math.Max(0, ValueColumnIndex - writer.Indent * IndentSize)}}}", name);
-            return writer.AppendLine($"{formattedName}: {value}");
+            var formattedName = string.Format($"{{0,-{Math.Max(0, 1 + ValueColumnIndex - writer.Indent * IndentSize)}}}", name + ":");
+            return writer.AppendLine($"{formattedName} {value}");
         }
 
         public static IndentedTextWriter AppendMetric(this IndentedTextWriter writer, 
