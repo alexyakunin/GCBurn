@@ -13,6 +13,7 @@ namespace GCBurn.BurnTest
         public const int ObjectSize = 16; // Object header size on x64 platform
         public const int MinArraySize = ObjectSize + 8; // Object header + length
         public const int MinAllocationSize = MinArraySize + 8; // Array size + pointer size
+        public const int AvgPauseFrequency = 12000;
 
         public TimeSpan RunDuration = TimeSpan.Zero;
         public long MinGCPause = Stopwatch.Frequency / 100_000; // 0.01 ms
@@ -30,7 +31,7 @@ namespace GCBurn.BurnTest
             RunDuration = runDuration;
             Allocations = allocations;
             StartIndex = startIndex;
-            GCPauses = new List<Interval>((int) (runDuration.TotalSeconds * 3000)); // No reallocations during the test
+            GCPauses = new List<Interval>((int) (runDuration.TotalSeconds * AvgPauseFrequency)); // No reallocations during the test
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

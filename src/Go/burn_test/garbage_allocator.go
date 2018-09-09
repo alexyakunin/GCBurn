@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+const AvgPauseFrequency = 12000
+
 type GarbageAllocator struct {
 	RunDuration   time.Duration
 	Allocations   []AllocationInfo
@@ -30,7 +32,7 @@ func NewGarbageAllocator(runDuration time.Duration, allocations []AllocationInfo
 		Allocations:   allocations,
 		StartIndex:    startIndex,
 		GarbageHolder: NewGarbageHolder(),
-		GCPauses:      make([]Interval, 0, int32(runDuration.Seconds()*3000)), // No reallocations during the test
+		GCPauses:      make([]Interval, 0, int32(runDuration.Seconds()*AvgPauseFrequency)), // No reallocations during the test
 	}
 	return a
 }
