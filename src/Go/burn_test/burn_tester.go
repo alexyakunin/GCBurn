@@ -62,8 +62,6 @@ func (t *BurnTester) TryInitialize() {
 		return
 	}
 
-	runtime.GC() // Go fails with OOM on initialization, so trying this...
-
 	sizeSampler := Truncate(CreateStandardSizeSampler(t.Random), MinSize, MaxSize)
 	timeSampler := Truncate(CreateStandardTimeSampler(t.Random), 0, MaxTime)
 	releaseCycleTimeInSeconds := NanosecondsPerReleaseCycle * Nano
@@ -98,14 +96,15 @@ func (t *BurnTester) TryInitialize() {
 		t.StaticSetCount += int64(len(allocator.Set))
 	}
 
+	runtime.GC()
+
 	t.isInitialized = true
 }
 
 func (t *BurnTester) Run() {
 	t.TryInitialize()
-	runtime.GC()
-	duration := t.Duration.Seconds()
 
+	duration := t.Duration.Seconds()
 	if !t.NoOutput {
 		fmt.Printf("Test settings:\n")
 		fmt.Printf("  Duration:          %v s\n", int(duration))

@@ -46,8 +46,6 @@ namespace GCBurn.BurnTest
             if (_isInitialized)
                 return;
             
-            GC.Collect(); // To make it uniform w/ Go test
-
             _allocations = new (int, sbyte, sbyte) [AllocationSequenceLength];
             var sizeSampler = CreateSizeSampler(Random).Truncate(MinSize, MaxSize);
             var timeSampler = CreateTimeSampler(Random).Truncate(0, MaxTime);
@@ -80,13 +78,14 @@ namespace GCBurn.BurnTest
                 .SelectMany(a => a.Set)
                 .ToArray();
             
+            GC.Collect(); // To make it uniform w/ Go test
+
             _isInitialized = true;
         }
 
         public void Run()
         {
             TryInitialize();
-            GC.Collect();
             
             var duration = Duration.TotalSeconds;
             var threadCount = ParallelRunner.ThreadCount;

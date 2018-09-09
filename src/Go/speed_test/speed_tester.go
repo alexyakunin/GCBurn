@@ -3,7 +3,6 @@ package speed_test
 import (
 	. "../common"
 	"fmt"
-	"runtime"
 	"time"
 )
 
@@ -45,7 +44,6 @@ func (t *SpeedTester) Run() {
 	totalCount := int64(0)
 	for pass := 0; pass < PassCount; pass++ {
 		runner := NewParallelRunner(func(i int) IActivity { return NewUnitAllocator(t.Duration) })
-		runtime.GC()
 		activities := runner.Run()
 
 		// Slice item casting

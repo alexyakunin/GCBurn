@@ -34,7 +34,6 @@ namespace GCBurn.SpeedTest
             var totalCount = 0L;
             for (var pass = 0; pass < PassCount; pass++) {
                 var runner = ParallelRunner.New(i => new UnitAllocator(Duration));
-                GC.Collect();
                 var allocators = runner.Run();
                 totalCount = Math.Max(totalCount, allocators.Sum(a => a.AllocationCount));
             } 
