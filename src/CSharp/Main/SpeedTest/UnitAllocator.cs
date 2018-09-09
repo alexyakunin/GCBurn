@@ -5,7 +5,9 @@ namespace GCBurn.SpeedTest
 {
     public class UnitAllocator
     {
+#pragma warning disable 169
         public class Unit { long Field1, Field2, Field3; }
+#pragma warning restore 169
 
         public const long UnitSize = 3 * sizeof(long);
         public const int StepSize = 50;

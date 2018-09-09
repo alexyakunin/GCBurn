@@ -6,6 +6,7 @@ import (
 	st "./speed_test"
 	"flag"
 	"fmt"
+	"os"
 	"time"
 )
 
@@ -17,6 +18,9 @@ func main() {
 	ramSizeGb := *ramSizeGbFlag
 	bt.DefaultDuration = time.Duration(*durationSecFlag * int64(time.Second))
 
+	fmt.Printf("Test:\n")
+	fmt.Printf("  Runtime:   Go\n")
+	fmt.Printf("  Arguments: %+v\n", os.Args[1:])
 	fmt.Printf("Environment:\n")
 	fmt.Printf("  RAM size: %v GB\n", ramSizeGb)
 

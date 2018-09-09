@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Linq;
 using System.Runtime;
 using System.Runtime.InteropServices;
 using CommandLine;
@@ -57,6 +58,10 @@ namespace GCBurn
             var testedRamSize = options.RamSize ?? hardwareRamSize;
 
             // Dumping environment info
+            using (Writer.Section("Test:")) {
+                Writer.AppendValue("Runtime", ".NET Core / C#");
+                Writer.AppendValue("Arguments", string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
+            }
             using (Writer.Section("Environment:")) {
                 using (Writer.Section("Hardware:")) {
                     Writer.AppendValue($"CPU", $"{HardwareInfo.GetCpuModelName()}, {Environment.ProcessorCount} core(s)");
