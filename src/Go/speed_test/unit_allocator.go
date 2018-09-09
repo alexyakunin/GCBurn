@@ -28,15 +28,16 @@ func NewUnitAllocator() *UnitAllocator {
 func (a *UnitAllocator) Run(duration time.Duration, done chan bool) {
 	lastTimestamp := Nanotime().Nanoseconds()
 	endTimestamp := lastTimestamp + duration.Nanoseconds()
-	last := new(AllocationUnit)
+	last := &AllocationUnit{}
 
 	for lastTimestamp < endTimestamp {
 		for i := 0; i < StepSize; i++ {
-			last = new(AllocationUnit)
+			last = new(AllocationUnit) // Just to make sure there is a heap allocation
+			// last = &AllocationUnit{} // This version runs with the same speed
 		}
 		a.AllocationCount += StepSize
 		lastTimestamp = Nanotime().Nanoseconds()
 	}
-	a.Last = last
+	a.Last = last // To suppress unused var error; changes nothing
 	done <- true
 }
