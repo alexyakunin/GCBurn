@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var DefaultDuration = time.Duration(1 * time.Second)
+var DefaultDuration = time.Duration(5 * time.Second)
 
 type SpeedTester struct {
 	NoOutput        bool

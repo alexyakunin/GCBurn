@@ -10,7 +10,7 @@ namespace GCBurn.SpeedTest
 {
     public class SpeedTester
     {
-        public static TimeSpan DefaultDuration = TimeSpan.FromSeconds(1);
+        public static TimeSpan DefaultDuration = TimeSpan.FromSeconds(5);
         public TimeSpan Duration = DefaultDuration;
         public int ThreadCount = Environment.ProcessorCount;
         public IndentedTextWriter Writer = new IndentedTextWriter(Console.Out, "  ");
