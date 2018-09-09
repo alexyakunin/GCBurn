@@ -1,2 +1,2 @@
 #! /bin/bash
-go app.go $@
+go run app.go $@
