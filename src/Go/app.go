@@ -34,28 +34,25 @@ func main() {
 	burnTester.Run()
 	burnTester = nil
 	fmt.Printf("  Done.\n")
-
 	fmt.Println()
+
 	fmt.Println("--- Raw allocation (w/o holding what's allocated) ---")
 	fmt.Println()
 	speedTester = st.NewSpeedTester()
 	speedTester.Run()
 
+	fmt.Println("--- Stateless server (no static set) ---")
 	fmt.Println()
-	fmt.Println("--- Caching / compute server (static set = 50% RAM) ---")
-	fmt.Println()
-	burnTester = bt.NewBurnTester(ramSizeGb * GB / 2) // 50%
+	burnTester = bt.NewBurnTester(0)
 	burnTester.Run()
 
-	fmt.Println()
 	fmt.Println("--- Worker / typical server (static set = 20% RAM) ---")
 	fmt.Println()
 	burnTester = bt.NewBurnTester(ramSizeGb * GB / 5) // 20%
 	burnTester.Run()
 
+	fmt.Println("--- Caching / compute server (static set = 50% RAM) ---")
 	fmt.Println()
-	fmt.Println("--- Stateless server (no static set) ---")
-	fmt.Println()
-	burnTester = bt.NewBurnTester(0)
+	burnTester = bt.NewBurnTester(ramSizeGb * GB / 2) // 50%
 	burnTester.Run()
 }

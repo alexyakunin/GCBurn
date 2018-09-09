@@ -82,4 +82,5 @@ func (t *SpeedTester) Run() {
 	fmt.Printf("  GC rate:               %.3f /s\n", float64(memStatsAfter.NumGC-memStatsBefore.NumGC)/duration)
 	fmt.Printf("  Allocation rate:       %.3f GB/s\n", float64(memStatsAfter.TotalAlloc-memStatsBefore.TotalAlloc)/duration/GB)
 	fmt.Printf("  Free rate:             %.3f GB/s\n", float64(memStatsAfter.Frees-memStatsBefore.Frees)/duration/GB)
+	fmt.Println()
 }

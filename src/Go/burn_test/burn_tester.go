@@ -192,4 +192,5 @@ func (t *BurnTester) Run() {
 	fmt.Printf("    %% of time frozen:   %.3f %%\n", globalPausesSum/1000/duration*100)
 	fmt.Printf("    # per second:        %.3f /s\n", float64(len(globalPauses))/duration)
 	DumpArrayStats(globalPauses, "ms", "      ", true)
+	fmt.Println()
 }
