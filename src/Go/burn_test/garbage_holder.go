@@ -22,8 +22,8 @@ func NewGarbageHolder() *GarbageHolder {
 }
 
 func (g *GarbageHolder) Reset() {
-	for i, _ := range g.buckets {
-		for j, _ := range g.buckets[i] {
+	for i := range g.buckets {
+		for j := range g.buckets[i] {
 			g.buckets[i][j] = nil
 		}
 	}
@@ -31,7 +31,7 @@ func (g *GarbageHolder) Reset() {
 
 func (g *GarbageHolder) Start() {
 	g.startTime = Nanotime().Nanoseconds()
-	for i, _ := range g.collected {
+	for i := range g.collected {
 		g.collected[i] = 0
 	}
 }
@@ -58,7 +58,7 @@ func (g *GarbageHolder) release(bucket, generationCount int) {
 		}
 		for i := remaining; i < BucketSize; i++ {
 			g.buckets[i-remaining] = g.buckets[i] // copy array
-			for j, _ := range g.buckets[i] {
+			for j := range g.buckets[i] {
 				g.buckets[i][j] = nil
 			}
 		}

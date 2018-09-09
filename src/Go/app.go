@@ -7,22 +7,30 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"runtime"
 	"time"
 )
 
 func main() {
 	var ramSizeGbFlag = flag.Int64("m", 4, "RAM size, GB")
 	var durationSecFlag = flag.Int64("d", 10, "Test pass duration, seconds")
+	var threadCountFlag = flag.Int("t", 0, "Number of threads to use")
 	var _ = flag.String("l", "", "Latency mode (ignored for Go)")
 	flag.Parse()
 	ramSizeGb := *ramSizeGbFlag
 	bt.DefaultDuration = time.Duration(*durationSecFlag * int64(time.Second))
+	if 0 < *threadCountFlag {
+		ThreadCount = *threadCountFlag
+	}
 
-	fmt.Printf("Test:\n")
+	args := fmt.Sprintf("%+v", os.Args[1:])
+	fmt.Printf("Launch parameters: %v\n", args[1:len(args)-1])
+	fmt.Printf("Software:\n")
 	fmt.Printf("  Runtime:   Go\n")
-	fmt.Printf("  Arguments: %+v\n", os.Args[1:])
-	fmt.Printf("Environment:\n")
-	fmt.Printf("  RAM size: %v GB\n", ramSizeGb)
+	fmt.Printf("    Version: %v\n", runtime.Version())
+	fmt.Printf("  OS:        %v (%v)\n", runtime.GOOS, runtime.GOARCH)
+	fmt.Printf("Hardware:\n")
+	fmt.Printf("  RAM size:  %v GB\n", ramSizeGb)
 
 	fmt.Printf("Warming up...\n")
 	speedTester := st.NewWarmupSpeedTester()

@@ -22,6 +22,10 @@ namespace GCBurn
                 Default = 10)]
             public int? Duration { get; set; }
 
+            [Option('t', "threads", Required = false, HelpText = "Number of threads to use",
+                Default = null)]
+            public int? ThreadCount { get; set; }
+
             [Option('l', "gcLatencyMode", Required = false, HelpText = "Latency mode", 
                 Default = null)] // null = don't change what's on start
             public string GCLatencyMode { get; set; }
@@ -51,6 +55,8 @@ namespace GCBurn
                 GCSettings.LatencyMode = Enum.Parse<GCLatencyMode>(options.GCLatencyMode);
             if (options.Duration.HasValue)
                 BurnTester.DefaultDuration = TimeSpan.FromSeconds(options.Duration.Value);
+            if (options.ThreadCount.HasValue)
+                ParallelRunner.ThreadCount = options.ThreadCount.Value;
             var hardwareRamSize = HardwareInfo.GetRamSize();
 #if DEBUG
             hardwareRamSize = 4;
@@ -58,27 +64,22 @@ namespace GCBurn
             var testedRamSize = options.RamSize ?? hardwareRamSize;
 
             // Dumping environment info
-            using (Writer.Section("Test:")) {
-                Writer.AppendValue("Runtime", ".NET Core / C#");
-                Writer.AppendValue("Arguments", string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
-            }
-            using (Writer.Section("Environment:")) {
-                using (Writer.Section("Hardware:")) {
-                    Writer.AppendValue($"CPU", $"{HardwareInfo.GetCpuModelName()}, {Environment.ProcessorCount} core(s)");
-                    var ramSizeString = hardwareRamSize.ToString("N0", "GB") + (
-                        options.RamSize != null 
-                            ? $" (assuming {options.RamSize.ToString("N0", "GB")} during the test)" 
-                            : "");  
-                    Writer.AppendValue("RAM size", ramSizeString);
-                }
-                using (Writer.Section("Operating system:")) {
-                    Writer.AppendValue("Version", RuntimeInformation.OSDescription.Trim());
-                    Writer.AppendValue("Architecture", RuntimeInformation.OSArchitecture.ToString());
-                }
-                using (Writer.Section(".NET Framework:")) {
+            Writer.AppendValue("Launch parameters", string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
+            using (Writer.Section("Software:")) {
+                Writer.AppendValue("Runtime", ".NET Core");
+                using (Writer.Indent()) {
                     Writer.AppendValue("Version", RuntimeInformation.FrameworkDescription);
                     Writer.AppendValue("GC mode", GCInfo.GetGCMode());
                 }
+                Writer.AppendValue("OS", $"{RuntimeInformation.OSDescription.Trim()} ({RuntimeInformation.OSArchitecture})");
+            }
+            using (Writer.Section("Hardware:")) {
+                Writer.AppendValue($"CPU", $"{HardwareInfo.GetCpuModelName()}, {Environment.ProcessorCount} core(s)");
+                var ramSizeString = hardwareRamSize.ToString("N0", "GB") + (
+                    options.RamSize != null 
+                        ? $" (assuming {options.RamSize.ToString("N0", "GB")} during the test)" 
+                        : "");  
+                Writer.AppendValue("RAM size", ramSizeString);
             }
 
             // Checking whether we actually know the RAM size to test

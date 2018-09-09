@@ -7,6 +7,7 @@ import (
 )
 
 type GarbageAllocator struct {
+	RunDuration   time.Duration
 	Allocations   []AllocationInfo
 	StartIndex    int32
 	GarbageHolder *GarbageHolder
@@ -23,11 +24,13 @@ type AllocationInfo struct {
 	GenerationIndex int8
 }
 
-func NewGarbageAllocator(ai []AllocationInfo, startIndex int32) *GarbageAllocator {
-	a := &GarbageAllocator{}
-	a.Allocations = ai
-	a.StartIndex = startIndex
-	a.GarbageHolder = NewGarbageHolder()
+func NewGarbageAllocator(runDuration time.Duration, allocations []AllocationInfo, startIndex int32) *GarbageAllocator {
+	a := &GarbageAllocator{
+		RunDuration:   runDuration,
+		Allocations:   allocations,
+		StartIndex:    startIndex,
+		GarbageHolder: NewGarbageHolder(),
+	}
 	return a
 }
 
@@ -47,7 +50,7 @@ func CreateGarbage(arraySize int32) []int64 {
 	return make([]int64, arraySize)
 }
 
-func (a *GarbageAllocator) Run(duration time.Duration, done chan bool) {
+func (a *GarbageAllocator) Run() {
 	allocations := a.Allocations
 	gh := a.GarbageHolder
 	gcPauses := a.GCPauses
@@ -57,7 +60,7 @@ func (a *GarbageAllocator) Run(duration time.Duration, done chan bool) {
 
 	a.GarbageHolder.Start()
 	lastTimestamp := Nanotime().Nanoseconds()
-	endTimestamp := lastTimestamp + duration.Nanoseconds()
+	endTimestamp := lastTimestamp + a.RunDuration.Nanoseconds()
 
 	for lastTimestamp < endTimestamp {
 		ai := allocations[allocationIndex]
@@ -79,10 +82,12 @@ func (a *GarbageAllocator) Run(duration time.Duration, done chan bool) {
 		elapsed := Nanotime().Nanoseconds()
 		diff := elapsed - lastTimestamp
 		if diff >= MinGCPause {
-			gcPauses = append(gcPauses, Interval{float64(lastTimestamp), float64(elapsed)})
+			gcPauses = append(gcPauses, Interval{
+				Start: float64(lastTimestamp),
+				End:   float64(elapsed),
+			})
 		}
 		lastTimestamp = elapsed
 	}
 	a.GCPauses = gcPauses
-	done <- true
 }

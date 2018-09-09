@@ -6,7 +6,7 @@ using Benchmarking.Common;
 
 namespace GCBurn.BurnTest
 {
-    public class GarbageAllocator
+    public class GarbageAllocator : IActivity
     {
         public const int ArrayItemSize = 8;
         public const int ArrayItemSizeLog2 = 3;
@@ -14,6 +14,7 @@ namespace GCBurn.BurnTest
         public const int MinArraySize = ObjectSize + 8; // Object header + length
         public const int MinAllocationSize = MinArraySize + 8; // Array size + pointer size
 
+        public TimeSpan RunDuration = TimeSpan.Zero;
         public long MinGCPause = Stopwatch.Frequency / 100_000; // 0.01 ms
         public (int ArraySize, sbyte BucketIndex, sbyte GenerationIndex)[] Allocations;
         public GarbageHolder GarbageHolder = new GarbageHolder();
@@ -24,8 +25,9 @@ namespace GCBurn.BurnTest
         public long ByteCount;
         public List<Interval> GCPauses = new List<Interval>(1000); 
 
-        public GarbageAllocator((int, sbyte, sbyte)[] allocations, int startIndex)
+        public GarbageAllocator(TimeSpan runDuration, (int, sbyte, sbyte)[] allocations, int startIndex)
         {
+            RunDuration = runDuration;
             Allocations = allocations;
             StartIndex = startIndex;
         }
@@ -40,8 +42,9 @@ namespace GCBurn.BurnTest
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateGarbage(int arraySize) => new long[arraySize];
 
-        public void Run(TimeSpan duration)
+        public void Run()
         {
+            var duration = RunDuration;
             var allocations = Allocations;
             var gh = GarbageHolder;
             var gcPauses = GCPauses;

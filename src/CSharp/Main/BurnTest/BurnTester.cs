@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Benchmarking.Common;
 
 namespace GCBurn.BurnTest 
@@ -20,7 +19,6 @@ namespace GCBurn.BurnTest
         
         public static TimeSpan DefaultDuration = TimeSpan.FromSeconds(10);
         public TimeSpan Duration = DefaultDuration;
-        public int ThreadCount = Environment.ProcessorCount;
         public StdRandom Random = new StdRandom(123); 
         public Func<StdRandom, IDistribution> CreateSizeSampler = Samplers.CreateStandardSizeSampler; 
         public Func<StdRandom, IDistribution> CreateTimeSampler = Samplers.CreateStandardTimeSampler;
@@ -28,7 +26,7 @@ namespace GCBurn.BurnTest
         public IndentedTextWriter Writer = new IndentedTextWriter(Console.Out, "  ");
         
         private bool _isInitialized;
-        private object[] _staticSet;
+        private object[][] _staticSet;
         private (int ArraySize, sbyte BucketIndex, sbyte GenerationIndex)[] _allocations;
         private int[] _startIndexes;
         
@@ -66,20 +64,20 @@ namespace GCBurn.BurnTest
                 _allocations[i] = (arraySize, bucketIndex, generationIndex);
             }
 
-            _startIndexes = Enumerable.Range(0, ThreadCount)
+            _startIndexes = Enumerable.Range(0, ParallelRunner.ThreadCount)
                 .Select(_ => Random.Next() % AllocationSequenceLength)
                 .ToArray();
             
             // Creating _staticSet
-            var staticSet = new List<object>();
-            var index = Random.Next() % AllocationSequenceLength;
-            for (var currentSize = 0L; currentSize < StaticSetSize;) {
-                var (arraySize, _, _) = _allocations[index];
-                staticSet.Add(GarbageAllocator.CreateGarbage(arraySize));
-                currentSize += GarbageAllocator.ArraySizeToByteSize(arraySize);
-                index = (index + 1) % AllocationSequenceLength;
-            }
-            _staticSet = staticSet.ToArray();
+            var startOffset = Random.Next() % AllocationSequenceLength;
+            _staticSet = ParallelRunner.New(i => new SetAllocator(
+                    StaticSetSize / ParallelRunner.ThreadCount,
+                    _allocations,
+                    (_startIndexes[i] + startOffset) % AllocationSequenceLength)
+                )
+                .Run()
+                .SelectMany(a => a.Set)
+                .ToArray();
             
             _isInitialized = true;
         }
@@ -88,33 +86,24 @@ namespace GCBurn.BurnTest
         {
             TryInitialize();
             GC.Collect();
-            var duration = Duration.TotalSeconds;
             
+            var duration = Duration.TotalSeconds;
+            var threadCount = ParallelRunner.ThreadCount;
             using (Writer.Section($"Test settings:")) {
                 Writer.AppendMetric("Duration", duration, "s");
-                Writer.AppendMetric("Thread count", ThreadCount, "");
+                Writer.AppendMetric("Thread count", threadCount, "");
                 using (Writer.Section($"Static set:")) {
                     Writer.AppendMetric("Total size", StaticSetSize / Sizes.GB, "GB");
-                    Writer.AppendMetric("Object count", _staticSet.Length / Sizes.Mega, "M");
+                    Writer.AppendMetric("Object count", _staticSet.Sum(a => (long) a.Length) / Sizes.Mega, "M");
                 }
             }
 
-            var allocators = Enumerable.Range(0, ThreadCount)
-                .Select(i => new GarbageAllocator(_allocations, _startIndexes[i]))
-                .ToArray();
-            var threads = allocators
-                .Select(a => new Thread(() => a.Run(Duration)))
-                .ToArray();
-
+            var runner = ParallelRunner.New(i => new GarbageAllocator(Duration, _allocations, _startIndexes[i]));
             var gcCounts = GCInfo.GetGCCounts();
-            var ramUsedBefore = GC.GetTotalMemory(false);
+            var memUsedBefore = GC.GetTotalMemory(false);
             var startTimestamp = Stopwatch.GetTimestamp();
-            foreach (var thread in threads)
-                thread.Start();
-            foreach (var thread in threads)
-                thread.Join();
-            gcCounts = GCInfo.GetGCCountsSince(gcCounts);
-            var ramUsedAfter = GC.GetTotalMemory(false);
+            var allocators = runner.Run();
+            var memUsedAfter = GC.GetTotalMemory(false);
 
             Writer.AppendLine();
 
@@ -168,13 +157,13 @@ namespace GCBurn.BurnTest
                 }
             }
             using (Writer.Section($"GC stats:")) {
-                Writer.AppendValue("RAM used", $"{(ramUsedBefore / Sizes.GB):0.###} -> {(ramUsedAfter / Sizes.GB):0.###} GB");
+                Writer.AppendValue("RAM used", $"{(memUsedBefore / Sizes.GB):0.###} -> {(memUsedAfter / Sizes.GB):0.###} GB");
                 using (Writer.Section($"GC rate:")) {
                     foreach (var (c, i) in gcCounts.WithIndexes())
                         Writer.AppendMetric($"Gen{i}, # per second", c / duration, "/s");
                 }
                 using (Writer.Section($"Thread pauses:")) {
-                    Writer.AppendMetric("% of time frozen", threadPauses.SelectMany(p => p).Sum() / 1000 / ThreadCount / duration * 100, "%");
+                    Writer.AppendMetric("% of time frozen", threadPauses.SelectMany(p => p).Sum() / 1000 / threadCount / duration * 100, "%");
                     Writer.AppendHistogram("# per second:", pauseCountPerSecondPerThread, "/s");
                 }
                 using (Writer.Section($"Global pauses:")) {

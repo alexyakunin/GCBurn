@@ -9,7 +9,8 @@ const UnitSize = 24
 const StepSize = 50
 
 type UnitAllocator struct {
-	Last *AllocationUnit
+	RunDuration time.Duration
+	Last        *AllocationUnit
 	// Statistics
 	AllocationCount int64
 }
@@ -20,14 +21,16 @@ type AllocationUnit struct {
 	Field3 int64
 }
 
-func NewUnitAllocator() *UnitAllocator {
-	a := &UnitAllocator{}
+func NewUnitAllocator(runDuration time.Duration) *UnitAllocator {
+	a := &UnitAllocator{
+		RunDuration: runDuration,
+	}
 	return a
 }
 
-func (a *UnitAllocator) Run(duration time.Duration, done chan bool) {
+func (a *UnitAllocator) Run() {
 	lastTimestamp := Nanotime().Nanoseconds()
-	endTimestamp := lastTimestamp + duration.Nanoseconds()
+	endTimestamp := lastTimestamp + a.RunDuration.Nanoseconds()
 	last := &AllocationUnit{}
 
 	for lastTimestamp < endTimestamp {
@@ -39,5 +42,4 @@ func (a *UnitAllocator) Run(duration time.Duration, done chan bool) {
 		lastTimestamp = Nanotime().Nanoseconds()
 	}
 	a.Last = last // To suppress unused var error; changes nothing
-	done <- true
 }

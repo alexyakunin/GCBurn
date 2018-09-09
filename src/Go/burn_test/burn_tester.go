@@ -2,6 +2,7 @@ package burn_test
 
 import (
 	. "../common"
+	. "../common/nanotime"
 	"fmt"
 	"math"
 	"runtime"
@@ -24,26 +25,28 @@ var MinGCPause = time.Duration(10 * time.Microsecond).Nanoseconds()
 var DefaultDuration = time.Duration(10 * time.Second)
 
 type BurnTester struct {
-	NoOutput      bool
-	Duration      time.Duration
-	ThreadCount   int
-	StaticSetSize int64
-	Allocations   []AllocationInfo
-	StartIndexes  []int32
-	StaticSet     [][]int64
-	Random        *StdRandom
-	isInitialized bool
+	NoOutput       bool
+	Duration       time.Duration
+	StaticSetSize  int64
+	Allocations    []AllocationInfo
+	StartIndexes   []int32
+	StaticSet      [][][]int64
+	StaticSetCount int64
+	Random         *StdRandom
+	isInitialized  bool
 }
 
 func NewBurnTester(staticSetSize int64) *BurnTester {
-	t := &BurnTester{}
-	t.NoOutput = false
-	t.Duration = DefaultDuration
-	t.ThreadCount = runtime.NumCPU()
-	t.StaticSetSize = staticSetSize
-	t.Allocations = make([]AllocationInfo, AllocationSequenceLength)
-	t.StartIndexes = make([]int32, AllocationSequenceLength)
-	t.Random = NewStdRandom(123)
+	t := &BurnTester{
+		NoOutput:       false,
+		Duration:       DefaultDuration,
+		StaticSetSize:  staticSetSize,
+		Allocations:    make([]AllocationInfo, AllocationSequenceLength),
+		StartIndexes:   make([]int32, AllocationSequenceLength),
+		StaticSet:      make([][][]int64, 0),
+		StaticSetCount: 0,
+		Random:         NewStdRandom(123),
+	}
 	return t
 }
 
@@ -77,20 +80,22 @@ func (t *BurnTester) TryInitialize() {
 		t.Allocations[i] = AllocationInfo{arraySize, bucketIndex, generationIndex}
 	}
 
-	// Creating staticSet
-	var staticSet [][]int64
-	var index = t.Random.Next() % AllocationSequenceLength
-	var currentSize int64 = 0
-	for currentSize < t.StaticSetSize {
-		arraySize := t.Allocations[index].ArraySize
-		staticSet = append(staticSet, CreateGarbage(arraySize))
-		currentSize += ArraySizeToByteSize(arraySize)
-		index = (index + 1) % AllocationSequenceLength
-	}
-	t.StaticSet = staticSet
-
-	for i := 0; i < t.ThreadCount; i++ {
+	for i := 0; i < ThreadCount; i++ {
 		t.StartIndexes[i] = int32(t.Random.Next()) % AllocationSequenceLength
+	}
+
+	startOffset := int32(t.Random.Next()) % AllocationSequenceLength
+	runner := NewParallelRunner(func(i int) IActivity {
+		return NewSetAllocator(
+			t.StaticSetSize/int64(ThreadCount),
+			t.Allocations,
+			(startOffset+t.StartIndexes[i])%AllocationSequenceLength)
+	})
+	activities := runner.Run()
+	for _, a := range activities {
+		allocator := a.(*SetAllocator)
+		t.StaticSet = append(t.StaticSet, allocator.Set)
+		t.StaticSetCount += int64(len(allocator.Set))
 	}
 
 	t.isInitialized = true
@@ -104,34 +109,27 @@ func (t *BurnTester) Run() {
 	if !t.NoOutput {
 		fmt.Printf("Test settings:\n")
 		fmt.Printf("  Duration:     %v s\n", int(duration))
-		fmt.Printf("  Thread count: %v\n", t.ThreadCount)
+		fmt.Printf("  Thread count: %v\n", ThreadCount)
 		fmt.Printf("  Static set:\n")
 		fmt.Printf("    Total size:     %.3f GB\n", float64(t.StaticSetSize)/GB)
-		fmt.Printf("    Object count:   %.3f M\n", float64(len(t.StaticSet))/Mega)
+		fmt.Printf("    Object count:   %.3f M\n", float64(t.StaticSetCount)/Mega)
 		fmt.Println()
 	}
 
-	var done = make(chan bool)
-	var allocators []*GarbageAllocator
-	var startTime = float64(time.Now().UnixNano())
-	for i := 0; i < t.ThreadCount; i++ {
-		allocators = append(allocators, NewGarbageAllocator(t.Allocations, t.StartIndexes[i]))
-	}
+	runner := NewParallelRunner(func(i int) IActivity { return NewGarbageAllocator(t.Duration, t.Allocations, t.StartIndexes[i]) })
 
 	memStatsBefore := new(runtime.MemStats)
 	runtime.ReadMemStats(memStatsBefore)
-
-	// Doing this step separately to make sure we Run this at almost the same time
-	for _, a := range allocators {
-		go a.Run(t.Duration, done)
-	}
-	// Wait for goroutines to complete
-	for range allocators {
-		<-done
-	}
-
+	startTime := float64(Nanotime().Nanoseconds())
+	activities := runner.Run()
 	memStatsAfter := new(runtime.MemStats)
 	runtime.ReadMemStats(memStatsAfter)
+
+	// Slice item casting
+	allocators := make([]*GarbageAllocator, 0)
+	for _, a := range activities {
+		allocators = append(allocators, a.(*GarbageAllocator))
+	}
 
 	if t.NoOutput {
 		return
@@ -189,7 +187,7 @@ func (t *BurnTester) Run() {
 	fmt.Printf("  Allocation rate:       %.3f GB/s\n", float64(memStatsAfter.TotalAlloc-memStatsBefore.TotalAlloc)/duration/GB)
 	fmt.Printf("  Free rate:             %.3f GB/s\n", float64(memStatsAfter.Frees-memStatsBefore.Frees)/duration/GB)
 	fmt.Printf("  Global pauses:\n")
-	fmt.Printf("    %% of time frozen:   %.3f %%\n", globalPausesSum/1000/duration*100)
+	fmt.Printf("    %% of time frozen:    %.3f %%\n", globalPausesSum/1000/duration*100)
 	fmt.Printf("    # per second:        %.3f /s\n", float64(len(globalPauses))/duration)
 	DumpArrayStats(globalPauses, "ms", "      ", true)
 	fmt.Println()

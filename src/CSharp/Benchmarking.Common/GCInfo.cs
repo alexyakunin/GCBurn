@@ -10,8 +10,11 @@ namespace Benchmarking.Common
         public static int[] GetGCCounts() => 
             Enumerable.Range(0, GC.MaxGeneration + 1).Select(GC.CollectionCount).ToArray();
 
+        public static int[] GetGCCountsSince(int[] now, int[] since) => 
+            now.Select((c, i) => c - since[i]).ToArray();
+
         public static int[] GetGCCountsSince(int[] since) => 
-            GetGCCounts().Select((c, i) => c - since[i]).ToArray();
+            GetGCCountsSince(GetGCCounts(), since);
 
         public static string GetGCMode()
         {
