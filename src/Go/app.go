@@ -28,9 +28,7 @@ func main() {
 	speedTester := st.NewWarmupSpeedTester()
 	speedTester.Run()
 	speedTester = nil
-	warmupStaticSetSize := int64(ramSizeGb * GB * 2 / 3)
-	warmupStaticSetSize = int64(1 * GB) // If this isn'burnTester done, it causes OOM
-	burnTester := bt.NewWarmupBurnTester(warmupStaticSetSize)
+	burnTester := bt.NewWarmupBurnTester(1 * int64(GB))
 	burnTester.Run()
 	burnTester = nil
 	fmt.Printf("  Done.\n")

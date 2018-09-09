@@ -93,41 +93,31 @@ namespace GCBurn
                 speedTester = SpeedTester.NewWarmup();
                 speedTester.Run();
                 speedTester = null;
-                // Pre-allocating ~ a bit more than expected in future
-                // to make GC to adjust for future alloc. pattern.
-                // Not sure if it works at all -- just guessing.
-                var warmupStaticSetSize = (long) (ramSize * 0.66);
-#if DEBUG
-                warmupStaticSetSize = (long) Sizes.MB;
-#endif
-                burnTester = BurnTester.NewWarmup(warmupStaticSetSize); 
+                burnTester = BurnTester.NewWarmup(1 * (long) Sizes.GB); 
                 burnTester.Run();
                 burnTester = null;
                 Writer.AppendLine("Done.");
             }
-
             Writer.AppendLine();
+
             Writer.AppendLine("--- Raw allocation (w/o holding what's allocated) ---");
             Writer.AppendLine();
             speedTester = SpeedTester.New();
             speedTester.Run();
 
+            Writer.AppendLine("--- Stateless server (no static set) ---");
             Writer.AppendLine();
-            Writer.AppendLine("--- Caching / compute server (static set = 50% RAM) ---");
-            Writer.AppendLine();
-            burnTester = BurnTester.New((long) (ramSize * 0.5));
+            burnTester = BurnTester.New(0);
             burnTester.Run();
 
-            Writer.AppendLine();
             Writer.AppendLine("--- Worker / typical server (static set = 20% RAM) ---");
             Writer.AppendLine();
             burnTester = BurnTester.New((long) (ramSize * 0.2));
             burnTester.Run();
-
+            
+            Writer.AppendLine("--- Caching / compute server (static set = 50% RAM) ---");
             Writer.AppendLine();
-            Writer.AppendLine("--- Stateless server (no static set) ---");
-            Writer.AppendLine();
-            burnTester = BurnTester.New(0);
+            burnTester = BurnTester.New((long) (ramSize * 0.5));
             burnTester.Run();
         }
     }

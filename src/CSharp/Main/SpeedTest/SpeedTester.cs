@@ -56,6 +56,7 @@ namespace GCBurn.SpeedTest
                 Writer.AppendMetric("Bytes per second", size  / duration / Sizes.GB, "GB/s");
                 Writer.AppendMetric("Bytes per second (incl. overhead)", fullSize  / duration / Sizes.GB, "GB/s");
             }
+            Writer.AppendLine();
         }
     }
 }
