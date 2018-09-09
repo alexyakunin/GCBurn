@@ -38,6 +38,7 @@ func (t *SpeedTester) Run() {
 		fmt.Printf("Test settings:\n")
 		fmt.Printf("  Duration:     %v ms\n", int64(t.Duration.Seconds()/Milli))
 		fmt.Printf("  Thread count: %v\n", ThreadCount)
+		fmt.Printf("  Unit size:    %v B\n", UnitSize)
 		fmt.Println()
 	}
 

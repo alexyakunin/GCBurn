@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-//const UnitSize = 16
+const UnitSize = 16
 const StepSize = 50
 
 type UnitAllocator struct {

@@ -108,11 +108,11 @@ func (t *BurnTester) Run() {
 
 	if !t.NoOutput {
 		fmt.Printf("Test settings:\n")
-		fmt.Printf("  Duration:     %v s\n", int(duration))
-		fmt.Printf("  Thread count: %v\n", ThreadCount)
+		fmt.Printf("  Duration:          %v s\n", int(duration))
+		fmt.Printf("  Thread count:      %v\n", ThreadCount)
 		fmt.Printf("  Static set:\n")
-		fmt.Printf("    Total size:     %.3f GB\n", float64(t.StaticSetSize)/GB)
-		fmt.Printf("    Object count:   %.3f M\n", float64(t.StaticSetCount)/Mega)
+		fmt.Printf("    Total size:      %.3f GB\n", float64(t.StaticSetSize)/GB)
+		fmt.Printf("    Object count:    %.3f M\n", float64(t.StaticSetCount)/Mega)
 		fmt.Println()
 	}
 
