@@ -1,2 +1,2 @@
 #! /bin/bash
-dotnet run -p App\GCBurn.App.csproj -c Release -- $@
+dotnet run -p App/GCBurn.App.csproj -c Release -- $@
