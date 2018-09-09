@@ -5,8 +5,10 @@
     <LangVersion>latest</LangVersion>
     <AssemblyName>GCBurn</AssemblyName>
     <RootNamespace>GCBurn</RootNamespace>
+    <!--
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    -->
     <!-- This info is displayed in help output -->
     <AssemblyTitle>GCBurn</AssemblyTitle>
     <Version>0.1</Version>
