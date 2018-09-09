@@ -1,4 +1,8 @@
 #! /bin/bash
 pushd "$(dirname "$0")"
-go run app.go $@
+
+pushd CSharp
+./clean $@
+popd
+
 popd

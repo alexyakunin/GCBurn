@@ -1,4 +1,5 @@
 #! /bin/bash
 pushd "$(dirname "$0")"
-go run app.go $@
+rm -r App/bin
+rm -r App/obj
 popd

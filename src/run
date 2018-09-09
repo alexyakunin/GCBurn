@@ -1,0 +1,12 @@
+#! /bin/bash
+pushd "$(dirname "$0")"
+
+pushd Go
+./run $@
+popd
+
+pushd CSharp
+./run $@
+popd
+
+popd
