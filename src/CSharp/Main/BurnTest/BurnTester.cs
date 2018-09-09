@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime;
 using Benchmarking.Common;
 
 namespace GCBurn.BurnTest 
@@ -160,9 +161,12 @@ namespace GCBurn.BurnTest
             }
             using (Writer.Section($"GC stats:")) {
                 Writer.AppendValue("RAM used", $"{(memUsedBefore / Sizes.GB):0.###} -> {(memUsedAfter / Sizes.GB):0.###} GB");
-                using (Writer.Section($"GC rate:")) {
-                    foreach (var (c, i) in gcCounts.WithIndexes())
-                        Writer.AppendMetric($"Gen{i}, # per second", c / duration, "/s");
+                if (!GCSettings.IsServerGC) {
+                    // This data doesn't seem to be correct when ServerGC is on
+                    using (Writer.Section($"GC rate:")) {
+                        foreach (var (c, i) in gcCounts.WithIndexes())
+                            Writer.AppendMetric($"Gen{i}, # per second", c / duration, "/s");
+                    }
                 }
                 using (Writer.Section($"Thread pauses:")) {
                     Writer.AppendMetric("% of time frozen", threadPauses.SelectMany(p => p).Sum() / 1000 / threadCount / duration * 100, "%");
