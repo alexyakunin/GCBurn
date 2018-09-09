@@ -74,12 +74,15 @@ namespace GCBurn
                 Writer.AppendValue("OS", $"{RuntimeInformation.OSDescription.Trim()} ({RuntimeInformation.OSArchitecture})");
             }
             using (Writer.Section("Hardware:")) {
-                Writer.AppendValue($"CPU", $"{HardwareInfo.GetCpuModelName()}, {Environment.ProcessorCount} core(s)");
-                var ramSizeString = hardwareRamSize.ToString("N0", "GB") + (
-                    options.RamSize != null 
-                        ? $" (assuming {options.RamSize.ToString("N0", "GB")} during the test)" 
-                        : "");  
-                Writer.AppendValue("RAM size", ramSizeString);
+                var coreCountAddon = ParallelRunner.ThreadCount != Environment.ProcessorCount 
+                    ? $" (assuming {ParallelRunner.ThreadCount} during the test)" 
+                    : "";  
+                Writer.AppendValue("CPU", HardwareInfo.GetCpuModelName());
+                Writer.AppendValue("CPU core count", $"{Environment.ProcessorCount}{coreCountAddon}");
+                var ramSizeAddon = testedRamSize != hardwareRamSize 
+                        ? $" (assuming {testedRamSize.ToString("N0", "GB")} during the test)" 
+                        : "";  
+                Writer.AppendValue("RAM size", $"{hardwareRamSize.ToString("N0", "GB")}{ramSizeAddon}");
             }
 
             // Checking whether we actually know the RAM size to test

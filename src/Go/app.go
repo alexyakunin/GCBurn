@@ -26,11 +26,17 @@ func main() {
 	args := fmt.Sprintf("%+v", os.Args[1:])
 	fmt.Printf("Launch parameters: %v\n", args[1:len(args)-1])
 	fmt.Printf("Software:\n")
-	fmt.Printf("  Runtime:   Go\n")
-	fmt.Printf("    Version: %v\n", runtime.Version())
-	fmt.Printf("  OS:        %v (%v)\n", runtime.GOOS, runtime.GOARCH)
+	fmt.Printf("  Runtime:         Go\n")
+	fmt.Printf("    Version:       %v\n", runtime.Version())
+	fmt.Printf("  OS:              %v (%v)\n", runtime.GOOS, runtime.GOARCH)
 	fmt.Printf("Hardware:\n")
-	fmt.Printf("  RAM size:  %v GB\n", ramSizeGb)
+	coreCountAddon := ""
+	if runtime.NumCPU() != ThreadCount {
+		coreCountAddon = fmt.Sprintf(" (assuming %v during the test)", ThreadCount)
+	}
+	fmt.Printf("  CPU core count:  %v%v\n", runtime.NumCPU(), coreCountAddon)
+	fmt.Printf("  RAM size:        n/a (assuming %v GB during the test)\n", ramSizeGb)
+	runtime.NumCPU()
 
 	fmt.Printf("Warming up...\n")
 	speedTester := st.NewWarmupSpeedTester()
