@@ -1,6 +1,5 @@
 ﻿using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,17 +11,18 @@ namespace GCBurn.BurnTest
     public class BurnTester
     {
         public const int AllocationSequenceLength = 1 << 20; // 2^20, i.e. ~ 1M items; must be a power of 2!
-        public const double MinSize = 1;
-        public const double MaxSize = 1 << 17; // 128KB
         public const double TimeSamplerFrequency = 1_000_000;
         public const double TimeSamplerUnitInSeconds = 1 / TimeSamplerFrequency;
-        public const double MaxTime = 1000 * TimeSamplerFrequency; // 1000 seconds
-        
         public static TimeSpan DefaultDuration = TimeSpan.FromSeconds(10);
+        public static double DefaultMaxTime = 1000 * TimeSamplerFrequency; // 1000 seconds
+        public static double DefaultMaxSize = 1 << 17; // 128KB
+        
         public TimeSpan Duration = DefaultDuration;
         public StdRandom Random = new StdRandom(123); 
         public Func<StdRandom, IDistribution> CreateSizeSampler = Samplers.CreateStandardSizeSampler; 
         public Func<StdRandom, IDistribution> CreateTimeSampler = Samplers.CreateStandardTimeSampler;
+        public double MaxTime = DefaultMaxTime;
+        public double MaxSize = DefaultMaxSize;
         public long StaticSetSize = 0;
         public IndentedTextWriter Writer = new IndentedTextWriter(Console.Out, "  ");
         
@@ -47,7 +47,7 @@ namespace GCBurn.BurnTest
                 return;
             
             _allocations = new (int, sbyte, sbyte) [AllocationSequenceLength];
-            var sizeSampler = CreateSizeSampler(Random).Truncate(MinSize, MaxSize);
+            var sizeSampler = CreateSizeSampler(Random).Truncate(1, MaxSize);
             var timeSampler = CreateTimeSampler(Random).Truncate(0, MaxTime);
             var releaseCycleTimeInSeconds = 1.0 * GarbageHolder.TicksPerReleaseCycle / Stopwatch.Frequency;
             var timeFactor = TimeSamplerUnitInSeconds / releaseCycleTimeInSeconds;

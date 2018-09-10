@@ -3,7 +3,6 @@ using System.CodeDom.Compiler;
 using System.Linq;
 using System.Runtime;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using CommandLine;
 using Benchmarking.Common;
 using GCBurn.BurnTest;
@@ -30,6 +29,10 @@ namespace GCBurn
             [Option('l', "gcLatencyMode", Required = false, HelpText = "Latency mode", 
                 Default = null)] // null = don't change what's on start
             public string GCLatencyMode { get; set; }
+
+            [Option('s', "maxSize", Required = false, HelpText = "Max. object size", 
+                Default = null)] // null = don't change what's on start
+            public string MaxSize { get; set; }
         }
         
         public IndentedTextWriter Writer = new IndentedTextWriter(Console.Out, "  ");
@@ -56,12 +59,11 @@ namespace GCBurn
                 GCSettings.LatencyMode = Enum.Parse<GCLatencyMode>(options.GCLatencyMode);
             if (options.Duration.HasValue)
                 BurnTester.DefaultDuration = TimeSpan.FromSeconds(options.Duration.Value);
+            BurnTester.DefaultMaxSize = ArgumentHelper.ParseRelativeValue(
+                options.MaxSize, BurnTester.DefaultMaxSize, true);
             ParallelRunner.ThreadCount = (int) ArgumentHelper.ParseRelativeValue(
                 options.ThreadCount, ParallelRunner.ThreadCount, true);
             var hardwareRamSize = HardwareInfo.GetRamSize();
-#if DEBUG
-            hardwareRamSize = 4;
-#endif
             var testedRamSize = (int) ArgumentHelper.ParseRelativeValue(options.RamSize, hardwareRamSize ?? 4, true);
 
             // Dumping environment info

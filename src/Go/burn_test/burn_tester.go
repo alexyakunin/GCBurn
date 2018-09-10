@@ -14,19 +14,19 @@ const ArrayItemSize = 8
 const ArrayItemSizeLog2 = 3
 const MinArraySize = 24
 const MinAllocationSize = MinArraySize + 8
-
-const AllocationSequenceLength = 1 << 20 // 2^20, i.e. ~ 1M items; must be a power of 2!
-const MinSize = 1
-const MaxSize = 1 << 17 // 128KB
 const TimeSamplerFrequency = 1000000
-const MaxTime = 1000 * TimeSamplerFrequency // 1000 seconds
+const AllocationSequenceLength = 1 << 20 // 2^20, i.e. ~ 1M items; must be a power of 2!
 
 var MinGCPause = time.Duration(10 * time.Microsecond).Nanoseconds()
 var DefaultDuration = time.Duration(10 * time.Second)
+var DefaultMaxTime = float64(1000) * TimeSamplerFrequency // 1000 seconds
+var DefaultMaxSize = float64(1 << 17) // 128KB
 
 type BurnTester struct {
 	NoOutput       bool
 	Duration       time.Duration
+	MaxTime		   float64
+	MaxSize		   float64
 	StaticSetSize  int64
 	Allocations    []AllocationInfo
 	StartIndexes   []int32
@@ -40,6 +40,8 @@ func NewBurnTester(staticSetSize int64) *BurnTester {
 	t := &BurnTester{
 		NoOutput:       false,
 		Duration:       DefaultDuration,
+		MaxTime:        DefaultMaxTime,
+		MaxSize:		DefaultMaxSize,
 		StaticSetSize:  staticSetSize,
 		Allocations:    make([]AllocationInfo, AllocationSequenceLength),
 		StartIndexes:   make([]int32, AllocationSequenceLength),
@@ -62,8 +64,8 @@ func (t *BurnTester) TryInitialize() {
 		return
 	}
 
-	sizeSampler := Truncate(CreateStandardSizeSampler(t.Random), MinSize, MaxSize)
-	timeSampler := Truncate(CreateStandardTimeSampler(t.Random), 0, MaxTime)
+	sizeSampler := Truncate(CreateStandardSizeSampler(t.Random), 1, t.MaxSize)
+	timeSampler := Truncate(CreateStandardTimeSampler(t.Random), 0, t.MaxTime)
 	releaseCycleTimeInSeconds := NanosecondsPerReleaseCycle * Nano
 	timeFactor := (1.0 / TimeSamplerFrequency) / releaseCycleTimeInSeconds
 	for i := 0; i < AllocationSequenceLength; i++ {

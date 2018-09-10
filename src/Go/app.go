@@ -15,9 +15,11 @@ func main() {
 	var durationSecFlag = flag.Int64("d", 10, "Test pass duration, seconds")
 	var ramSizeGbFlag = flag.String("m", "", "RAM size, GB")
 	var threadCountFlag = flag.String("t", "", "Number of threads to use")
+	var maxSizeFlag = flag.String("s", "", "Max. object size")
 	var _ = flag.String("l", "", "Latency mode (ignored for Go)")
 	flag.Parse()
 	bt.DefaultDuration = time.Duration(*durationSecFlag * int64(time.Second))
+	bt.DefaultMaxSize = ParseRelative(*maxSizeFlag, bt.DefaultMaxSize, true)
 	ramSizeGb := int64(ParseRelative(*ramSizeGbFlag, 4, true))
 	ThreadCount = int(ParseRelative(*threadCountFlag, float64(ThreadCount), true))
 
