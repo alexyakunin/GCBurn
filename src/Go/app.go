@@ -12,16 +12,14 @@ import (
 )
 
 func main() {
-	var ramSizeGbFlag = flag.Int64("m", 4, "RAM size, GB")
 	var durationSecFlag = flag.Int64("d", 10, "Test pass duration, seconds")
-	var threadCountFlag = flag.Int("t", 0, "Number of threads to use")
+	var ramSizeGbFlag = flag.String("m", "", "RAM size, GB")
+	var threadCountFlag = flag.String("t", "", "Number of threads to use")
 	var _ = flag.String("l", "", "Latency mode (ignored for Go)")
 	flag.Parse()
-	ramSizeGb := *ramSizeGbFlag
 	bt.DefaultDuration = time.Duration(*durationSecFlag * int64(time.Second))
-	if 0 < *threadCountFlag {
-		ThreadCount = *threadCountFlag
-	}
+	ramSizeGb := int64(ParseRelative(*ramSizeGbFlag, 4, true))
+	ThreadCount = int(ParseRelative(*threadCountFlag, float64(ThreadCount), true))
 
 	args := fmt.Sprintf("%+v", os.Args[1:])
 	fmt.Printf("Launch parameters: %v\n", args[1:len(args)-1])

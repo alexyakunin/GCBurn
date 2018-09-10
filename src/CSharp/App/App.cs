@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Linq;
 using System.Runtime;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using CommandLine;
 using Benchmarking.Common;
 using GCBurn.BurnTest;
@@ -14,17 +15,17 @@ namespace GCBurn
     {
         public class Options 
         {
-            [Option('m', "ram", Required = false, HelpText = "RAM size, GB",
-                Default = null)] // null = same as physical RAM amount
-            public int? RamSize { get; set; }
-
             [Option('d', "duration", Required = false, HelpText = "Test pass duration, seconds",
                 Default = 10)]
             public int? Duration { get; set; }
 
+            [Option('m', "ram", Required = false, HelpText = "RAM size, GB",
+                Default = null)] // null = same as physical RAM amount
+            public string RamSize { get; set; }
+
             [Option('t', "threads", Required = false, HelpText = "Number of threads to use",
                 Default = null)]
-            public int? ThreadCount { get; set; }
+            public string ThreadCount { get; set; }
 
             [Option('l', "gcLatencyMode", Required = false, HelpText = "Latency mode", 
                 Default = null)] // null = don't change what's on start
@@ -55,13 +56,13 @@ namespace GCBurn
                 GCSettings.LatencyMode = Enum.Parse<GCLatencyMode>(options.GCLatencyMode);
             if (options.Duration.HasValue)
                 BurnTester.DefaultDuration = TimeSpan.FromSeconds(options.Duration.Value);
-            if (options.ThreadCount.HasValue)
-                ParallelRunner.ThreadCount = options.ThreadCount.Value;
+            ParallelRunner.ThreadCount = (int) ArgumentHelper.ParseRelativeValue(
+                options.ThreadCount, ParallelRunner.ThreadCount, true);
             var hardwareRamSize = HardwareInfo.GetRamSize();
 #if DEBUG
             hardwareRamSize = 4;
 #endif
-            var testedRamSize = options.RamSize ?? hardwareRamSize;
+            var testedRamSize = (int) ArgumentHelper.ParseRelativeValue(options.RamSize, hardwareRamSize ?? 4, true);
 
             // Dumping environment info
             Writer.AppendValue("Launch parameters", string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
@@ -80,15 +81,13 @@ namespace GCBurn
                 Writer.AppendValue("CPU", HardwareInfo.GetCpuModelName());
                 Writer.AppendValue("CPU core count", $"{Environment.ProcessorCount}{coreCountAddon}");
                 var ramSizeAddon = testedRamSize != hardwareRamSize 
-                        ? $" (assuming {testedRamSize.ToString("N0", "GB")} during the test)" 
+                        ? $" (assuming {testedRamSize} GB during the test)" 
                         : "";  
                 Writer.AppendValue("RAM size", $"{hardwareRamSize.ToString("N0", "GB")}{ramSizeAddon}");
             }
 
             // Checking whether we actually know the RAM size to test
-            if (!testedRamSize.HasValue)
-                throw new ApplicationException("Can't proceed: neither hardware nor assumed RAM size is available.");
-            var ramSize = testedRamSize.Value * Sizes.GB;
+            var ramSize = testedRamSize * Sizes.GB;
 
             // Finally, running the test
             SpeedTester speedTester;
