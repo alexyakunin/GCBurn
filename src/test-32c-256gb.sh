@@ -1,5 +1,7 @@
 #! /bin/bash
 
+./clean
+
 pushd CSharp
 ./run -m 16  -d 120 -l 3 | tee ../Output/CSharp/m16d120.txt
 ./run -m 32  -d 120 -l 3 | tee ../Output/CSharp/m32d120.txt
