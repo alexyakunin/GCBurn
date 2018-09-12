@@ -1,4 +1,4 @@
 #! /bin/bash
 pushd "${0%/*}" >/dev/null
-./run-sgc
+./run-sgc $@
 popd >/dev/null
