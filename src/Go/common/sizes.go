@@ -1,6 +1,6 @@
 package common
 
-const KB = 1 << 20
+const KB = 1 << 10
 const MB = 1 << 20
 const GB = 1 << 30
 
