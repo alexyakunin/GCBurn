@@ -13,16 +13,16 @@ import (
 )
 
 func main() {
-	hardwareRamSize := GetRamSize()
+	ramSizeGb := GetRamSize()
 	var durationSecFlag = flag.Int64("d", 10, "Test pass duration, seconds")
-	var ramSizeGbFlag = flag.String("m", strconv.Itoa(hardwareRamSize), "Static set size, GB")
+	var staticSetSizeGbFlag = flag.String("m", strconv.Itoa(ramSizeGb), "Static set size, GB")
 	var threadCountFlag = flag.String("t", "", "Number of threads to use")
 	var maxSizeFlag = flag.String("s", "", "Max. object size")
 	var _ = flag.String("l", "", "Latency mode (ignored for Go)")
 	flag.Parse()
 	bt.DefaultDuration = time.Duration(*durationSecFlag * int64(time.Second))
 	bt.DefaultMaxSize = ParseRelative(*maxSizeFlag, bt.DefaultMaxSize, true)
-	ramSizeGb := int(ParseRelative(*ramSizeGbFlag, float64(hardwareRamSize), true))
+	staticSetSizeGb := int(ParseRelative(*staticSetSizeGbFlag, float64(ramSizeGb), true))
 	ThreadCount = int(ParseRelative(*threadCountFlag, float64(ThreadCount), true))
 
 	args := fmt.Sprintf("%+v", os.Args[1:])
@@ -33,13 +33,12 @@ func main() {
 	fmt.Printf("  OS:              %v %v\n", GetOSVersion(), runtime.GOARCH)
 	fmt.Printf("Hardware:\n")
 	fmt.Printf("  CPU:             %v\n", GetCpuModelName())
-
 	coreCountAddon := ""
 	if runtime.NumCPU() != ThreadCount {
-		coreCountAddon = fmt.Sprintf(" (assuming %v during the test)", ThreadCount)
+		coreCountAddon = fmt.Sprintf(" (using %v during the test)", ThreadCount)
 	}
 	fmt.Printf("  CPU core count:  %v%v\n", runtime.NumCPU(), coreCountAddon)
-	fmt.Printf("  RAM size:        %v GB\n", hardwareRamSize)
+	fmt.Printf("  RAM size:        %v GB\n", ramSizeGb)
 	runtime.NumCPU()
 
 	fmt.Printf("Warming up...\n")
@@ -52,10 +51,10 @@ func main() {
 	fmt.Printf("  Done.\n")
 	fmt.Println()
 
-	if ramSizeGb != hardwareRamSize {
+	if staticSetSizeGb != ramSizeGb {
 		title := fmt.Sprintf("--- Static set = %v GB (%.1f %% RAM) ---",
-			ramSizeGb, float64(ramSizeGb)*100/float64(hardwareRamSize))
-		runBurnTest(title, int64(ramSizeGb)*GB)
+			staticSetSizeGb, float64(staticSetSizeGb)*100/float64(ramSizeGb))
+		runBurnTest(title, int64(staticSetSizeGb)*GB)
 	} else {
 		runSpeedTest("--- Raw allocation (w/o holding what's allocated) ---")
 		runBurnTest("--- Stateless server (no static set) ---", 0)
