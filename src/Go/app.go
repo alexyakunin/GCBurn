@@ -52,7 +52,7 @@ func main() {
 	fmt.Println()
 
 	if staticSetSizeGb != ramSizeGb {
-		title := fmt.Sprintf("--- Static set = %v GB (%.1f %% RAM) ---",
+		title := fmt.Sprintf("--- Static set = %v GB (%.2f %% RAM) ---",
 			staticSetSizeGb, float64(staticSetSizeGb)*100/float64(ramSizeGb))
 		runBurnTest(title, int64(staticSetSizeGb)*GB)
 	} else {
