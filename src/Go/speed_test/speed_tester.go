@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const PassCount = 10
+const PassCount = 30
 
 var DefaultDuration = time.Duration(time.Millisecond)
 
@@ -27,7 +27,7 @@ func NewSpeedTester() *SpeedTester {
 func NewWarmupSpeedTester() *SpeedTester {
 	t := NewSpeedTester()
 	t.NoOutput = true
-	t.Duration = time.Duration(1 * time.Second)
+	t.Duration = time.Duration(5 * time.Millisecond)
 	return t
 }
 
