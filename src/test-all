@@ -34,6 +34,12 @@ echo
 ./run -l 3 -p m -r b -d $DURATION -m 25pct | tee -a $OUTPUT
 ./run -l 3 -p m -r b -d $DURATION -m 50pct | tee -a $OUTPUT
 
+./run -l 3 -p m -r b -t 75pct -d $DURATION -m 0 | tee -a $OUTPUT
+./run -l 3 -p m -r b -t 75pct -d $DURATION -m 1 | tee -a $OUTPUT
+./run -l 3 -p m -r b -t 75pct -d $DURATION -m 10pct | tee -a $OUTPUT
+./run -l 3 -p m -r b -t 75pct -d $DURATION -m 25pct | tee -a $OUTPUT
+./run -l 3 -p m -r b -t 75pct -d $DURATION -m 50pct | tee -a $OUTPUT
+
 popd >/dev/null
 done
 

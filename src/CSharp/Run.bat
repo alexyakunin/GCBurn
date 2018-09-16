@@ -1,1 +1,1 @@
-@call run-sgc.bat
+@call run-sgc.bat %*
