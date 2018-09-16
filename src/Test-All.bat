@@ -36,23 +36,25 @@ set OUTPUT='../../results/%1-%OUTPUT_SUFFIX%.txt'
 echo Series: %1, writing output to %OUTPUT%
 echo.
 
-powershell -c "cmd /C run -l 3 -p f -r a -t 1 | tee %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a -t 25pct | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a -t 50pct | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a -t 75pct | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p f -r a -t 1 2>&1 | tee %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r a -t 25pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r a -t 50pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r a -t 75pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r a 2>&1 | tee -a %OUTPUT%"
 
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 0 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 10pct | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 25pct | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 50pct | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 0 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 1 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 10pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 25pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 50pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 75pct 2>&1 | tee -a %OUTPUT%"
 
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 0 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 10pct | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 25pct | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 50pct | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 0 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 1 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 10pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 25pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 50pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 75pct 2>&1 | tee -a %OUTPUT%"
 
 popd
 goto :eof
