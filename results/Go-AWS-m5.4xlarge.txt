@@ -1,0 +1,1212 @@
+Launch parameters: -l 3 -p f -r a -t 1
+Software:
+  Runtime:         Go
+    Version:       go1.11
+  OS:              Linux version 4.15.0-1020-aws (buildd@lcy01-amd64-012) (gcc version 7.3.0 (Ubuntu 7.3.0-16ubuntu3)) #20-Ubuntu SMP Fri Aug 17 14:24:30 UTC 2018 amd64
+Hardware:
+  CPU:             Intel(R) Xeon(R) Platinum 8175M CPU @ 2.50GHz
+  CPU core count:  16, 1 used by test
+  RAM size:        61 GB
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 1
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 49.200 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 4
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 178.750 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 8
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 297.400 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 12
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 328.400 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 16
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 389.950 M/s
+
+--- Static set = 0 GB (0.00 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      16
+  Static set:
+    Total size:      0.000 GB
+    Object count:    0.000 M
+
+Allocation speed:
+  Operations per second: 45.34 M/s
+  Bytes per second:      3.90 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              0.355 -> 0.559 GB
+  GC rate:               8.375 /s
+  Allocation rate:
+    Objects:             24.944 M/s, 24.930 M/s freed
+    Bytes:               2.766 GB/s
+  Global pauses:
+    % of time frozen:    0.574 %, 0.138 % as reported by runtime
+    # per second:        401.058 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.014 ms
+        Max:    0.261 ms
+      Percentiles:
+        50%:    0.012 ms
+        90%:    0.015 ms
+        95%:    0.044 ms
+        99%:    0.140 ms
+        99.9%:  0.149 ms
+        99.99%: 0.156 ms
+
+--- Static set = 1 GB (1.64 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      16
+  Static set:
+    Total size:      1.000 GB
+    Object count:    11.643 M
+
+Allocation speed:
+  Operations per second: 35.63 M/s
+  Bytes per second:      3.06 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              1.313 -> 2.436 GB
+  GC rate:               1.633 /s
+  Allocation rate:
+    Objects:             19.599 M/s, 19.519 M/s freed
+    Bytes:               2.174 GB/s
+  Global pauses:
+    % of time frozen:    7.813 %, 0.030 % as reported by runtime
+    # per second:        17956.083 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.004 ms
+        Max:    3.823 ms
+      Percentiles:
+        50%:    0.002 ms
+        90%:    0.008 ms
+        95%:    0.011 ms
+        99%:    0.018 ms
+        99.9%:  0.154 ms
+        99.99%: 2.192 ms
+
+--- Static set = 6 GB (9.84 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      16
+  Static set:
+    Total size:      6.000 GB
+    Object count:    69.840 M
+
+Allocation speed:
+  Operations per second: 34.44 M/s
+  Bytes per second:      2.96 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              6.089 -> 12.323 GB
+  GC rate:               0.333 /s
+  Allocation rate:
+    Objects:             18.944 M/s, 18.497 M/s freed
+    Bytes:               2.101 GB/s
+  Global pauses:
+    % of time frozen:    8.636 %, 0.008 % as reported by runtime
+    # per second:        16096.592 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.005 ms
+        Max:    34.828 ms
+      Percentiles:
+        50%:    0.002 ms
+        90%:    0.007 ms
+        95%:    0.010 ms
+        99%:    0.014 ms
+        99.9%:  0.022 ms
+        99.99%: 8.460 ms
+
+--- Static set = 15 GB (24.59 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      16
+  Static set:
+    Total size:      15.000 GB
+    Object count:    174.580 M
+
+Allocation speed:
+  Operations per second: 33.88 M/s
+  Bytes per second:      2.91 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              15.562 -> 31.905 GB
+  GC rate:               0.133 /s
+  Allocation rate:
+    Objects:             18.640 M/s, 17.467 M/s freed
+    Bytes:               2.067 GB/s
+  Global pauses:
+    % of time frozen:    6.787 %, 0.003 % as reported by runtime
+    # per second:        10831.858 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.006 ms
+        Max:    83.365 ms
+      Percentiles:
+        50%:    0.002 ms
+        90%:    0.007 ms
+        95%:    0.010 ms
+        99%:    0.013 ms
+        99.9%:  0.021 ms
+        99.99%: 8.460 ms
+
+--- Static set = 30 GB (49.18 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      16
+  Static set:
+    Total size:      30.000 GB
+    Object count:    349.175 M
+
+Allocation speed:
+  Operations per second: 33.74 M/s
+  Bytes per second:      2.90 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              30.541 -> 53.601 GB
+  GC rate:               0.067 /s
+  Allocation rate:
+    Objects:             18.563 M/s, 16.909 M/s freed
+    Bytes:               2.059 GB/s
+  Global pauses:
+    % of time frozen:    6.129 %, 0.002 % as reported by runtime
+    # per second:        10533.992 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.006 ms
+        Max:    176.528 ms
+      Percentiles:
+        50%:    0.002 ms
+        90%:    0.006 ms
+        95%:    0.008 ms
+        99%:    0.013 ms
+        99.9%:  0.018 ms
+        99.99%: 6.166 ms
+
+--- Static set = 45 GB (73.77 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      16
+  Static set:
+    Total size:      45.000 GB
+    Object count:    523.775 M
+
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+fatal error: runtime: cannot allocate memory
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x4, 0x4)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918427b50, 0x7f5918427b01, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b9498, 0x35f0a8)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8797bf0, 0x45525d)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+goroutine 618 [running]:
+runtime.systemstack_switch()
+	/usr/local/go/src/runtime/asm_amd64.s:311 fp=0xc0003a7598 sp=0xc0003a7590 pc=0x4518b0
+runtime.(*mcache).nextFree(0x7f59e8797bf0, 0x1be70b5d, 0x1be70b0a1be6fea8, 0x5b9edb54, 0xc0003a7638)
+	/usr/local/go/src/runtime/malloc.go:748 +0xb6 fp=0xc0003a75f0 sp=0xc0003a7598 pc=0x40a916
+runtime.mallocgc(0x1800, 0x4ca0a0, 0x5b1f01, 0x1065868fca)
+	/usr/local/go/src/runtime/malloc.go:903 +0x793 fp=0xc0003a7690 sp=0xc0003a75f0 pc=0x40b263
+runtime.makeslice(0x4ca0a0, 0x2a8, 0x2a8, 0x5ce1d0, 0x0, 0x0)
+	/usr/local/go/src/runtime/slice.go:70 +0x77 fp=0xc0003a76c0 sp=0xc0003a7690 pc=0x43d9f7
+_/home/ubuntu/GCBurn/src/Go/burn_test.CreateGarbage(...)
+	/home/ubuntu/GCBurn/src/Go/burn_test/garbage_allocator.go:53
+_/home/ubuntu/GCBurn/src/Go/burn_test.(*GarbageAllocator).Run(0xc000072b40)
+	/home/ubuntu/GCBurn/src/Go/burn_test/garbage_allocator.go:73 +0x18b fp=0xc0003a77a8 sp=0xc0003a76c0 pc=0x4afc4b
+_/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run.func1(0x50aba0, 0xc000072b40, 0xc00045a240)
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:35 +0x31 fp=0xc0003a77c8 sp=0xc0003a77a8 pc=0x4adad1
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1333 +0x1 fp=0xc0003a77d0 sp=0xc0003a77c8 pc=0x453811
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 1 [chan receive]:
+_/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run(0xc7180c6000, 0x10, 0x10, 0x1, 0x0, 0x0)
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:41 +0xd2
+_/home/ubuntu/GCBurn/src/Go/burn_test.(*BurnTester).Run(0xc7128d7d28)
+	/home/ubuntu/GCBurn/src/Go/burn_test/burn_tester.go:125 +0x15c
+main.runBurnTest(0xc0018911d0, 0x28, 0xb40000000)
+	/home/ubuntu/GCBurn/src/Go/app.go:96 +0x2c4
+main.main()
+	/home/ubuntu/GCBurn/src/Go/app.go:74 +0xa3a
+
+goroutine 619 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 622 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 609 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 620 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 617 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 616 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 624 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 615 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 613 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 621 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 614 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 623 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 612 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 610 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 611 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x5, 0x5)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f59185177c0, 0x7f5918517701, 0x7f591862e000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b9398, 0x36b308)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e87982b0, 0x455259)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x38, 0x38)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918467430, 0x7f5918467401, 0x0)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b8298, 0xffffffffffffffff)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8787600, 0x455215)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x9, 0x9)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f591842ca28, 0x7f591842ca01, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b8f98, 0x3677d0)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8785b00, 0x455249)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x1, 0x7f59e8780101)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.heapBits.initSpan(0x7f591866f700, 0x20341e00000000, 0x7f5918745fff, 0x7f5918817690)
+	/usr/local/go/src/runtime/mbitmap.go:765 +0x74
+runtime.largeAlloc(0xb6e8, 0x450101, 0x7f59e8786f40)
+	/usr/local/go/src/runtime/malloc.go:1024 +0x128
+runtime.mallocgc.func1()
+	/usr/local/go/src/runtime/malloc.go:914 +0x46
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x100, 0x100)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918b4d7b8, 0x7f5918b4d701, 0x7f5918652b00)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b7f18, 0x2ce5a0)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e87846c0, 0x455207)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x100, 0x100)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918b4d850, 0x7f5918b4d801, 0x7f591861f600)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b7f18, 0xa50e8)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8797530, 0x455207)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x3, 0x3)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918466098, 0x7f5918466001, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b9418, 0x3eaf10)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8785440, 0x45525b)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x49, 0x49)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918518bf0, 0x7f5918518b01, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b8198, 0xffffffffffffffff)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8796e70, 0x455211)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x33, 0x33)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918469440, 0x7f5918469401, 0x0)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b8318, 0x26360)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8784000, 0x455217)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x3, 0x3)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f59190d4270, 0x7f59190d4201, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b9118, 0x37ebc8)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e87960f0, 0x45524f)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x100, 0x100)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f59184288f8, 0x7f5918428801, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b7ed8, 0x135e08)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8784d80, 0x455206)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x2, 0x2)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918bd1308, 0x7f5918bd1301, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b9318, 0x3da00)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e87967b0, 0x455257)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x8, 0x8)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f59190cf1d0, 0x7f59190cf101, 0x0)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b8d18, 0x1d6480)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e87861c0, 0x45523f)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x66, 0x66)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918b50570, 0x7f5918b50501, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b8098, 0x0)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8786880, 0x45520d)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+runtime stack:
+runtime.throw(0x4f6c8d, 0x1f)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.newArenaMayUnlock(0x5b1de0)
+	/usr/local/go/src/runtime/mheap.go:1668 +0xda
+runtime.newMarkBits(0x55, 0x55)
+	/usr/local/go/src/runtime/mheap.go:1588 +0xb3
+runtime.(*mspan).sweep(0x7f5918b4e0a0, 0x7f5918b4e001, 0x200000000000000)
+	/usr/local/go/src/runtime/mgcsweep.go:311 +0x48e
+runtime.(*mcentral).cacheSpan(0x5b8118, 0x6125a0)
+	/usr/local/go/src/runtime/mcentral.go:80 +0x3c5
+runtime.(*mcache).refill(0x7f59e8798970, 0x45520f)
+	/usr/local/go/src/runtime/mcache.go:122 +0x95
+runtime.(*mcache).nextFree.func1()
+	/usr/local/go/src/runtime/malloc.go:749 +0x32
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+exit status 2
+--- Static set = 0 GB (0.00 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      12
+  Static set:
+    Total size:      0.000 GB
+    Object count:    0.000 M
+
+Allocation speed:
+  Operations per second: 40.15 M/s
+  Bytes per second:      3.45 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              0.270 -> 0.314 GB
+  GC rate:               9.783 /s
+  Allocation rate:
+    Objects:             22.089 M/s, 22.086 M/s freed
+    Bytes:               2.450 GB/s
+  Global pauses:
+    % of time frozen:    0.535 %, 0.149 % as reported by runtime
+    # per second:        382.458 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.014 ms
+        Max:    0.170 ms
+      Percentiles:
+        50%:    0.011 ms
+        90%:    0.016 ms
+        95%:    0.043 ms
+        99%:    0.138 ms
+        99.9%:  0.149 ms
+        99.99%: 0.158 ms
+
+--- Static set = 1 GB (1.64 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      12
+  Static set:
+    Total size:      1.000 GB
+    Object count:    11.627 M
+
+Allocation speed:
+  Operations per second: 33.20 M/s
+  Bytes per second:      2.85 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              1.273 -> 2.012 GB
+  GC rate:               1.558 /s
+  Allocation rate:
+    Objects:             18.266 M/s, 18.213 M/s freed
+    Bytes:               2.026 GB/s
+  Global pauses:
+    % of time frozen:    6.232 %, 0.028 % as reported by runtime
+    # per second:        14016.117 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.004 ms
+        Max:    3.827 ms
+      Percentiles:
+        50%:    0.003 ms
+        90%:    0.009 ms
+        95%:    0.011 ms
+        99%:    0.017 ms
+        99.9%:  0.138 ms
+        99.99%: 1.640 ms
+
+--- Static set = 6 GB (9.84 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      12
+  Static set:
+    Total size:      6.000 GB
+    Object count:    69.843 M
+
+Allocation speed:
+  Operations per second: 32.05 M/s
+  Bytes per second:      2.75 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              6.275 -> 12.421 GB
+  GC rate:               0.308 /s
+  Allocation rate:
+    Objects:             17.629 M/s, 17.188 M/s freed
+    Bytes:               1.955 GB/s
+  Global pauses:
+    % of time frozen:    8.048 %, 0.007 % as reported by runtime
+    # per second:        14496.842 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.006 ms
+        Max:    20.308 ms
+      Percentiles:
+        50%:    0.003 ms
+        90%:    0.009 ms
+        95%:    0.011 ms
+        99%:    0.016 ms
+        99.9%:  0.037 ms
+        99.99%: 5.195 ms
+
+--- Static set = 15 GB (24.59 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      12
+  Static set:
+    Total size:      15.000 GB
+    Object count:    174.585 M
+
+Allocation speed:
+  Operations per second: 32.25 M/s
+  Bytes per second:      2.77 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              15.174 -> 26.128 GB
+  GC rate:               0.125 /s
+  Allocation rate:
+    Objects:             17.744 M/s, 16.957 M/s freed
+    Bytes:               1.968 GB/s
+  Global pauses:
+    % of time frozen:    5.875 %, 0.004 % as reported by runtime
+    # per second:        8703.375 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.007 ms
+        Max:    50.595 ms
+      Percentiles:
+        50%:    0.003 ms
+        90%:    0.009 ms
+        95%:    0.011 ms
+        99%:    0.016 ms
+        99.9%:  0.035 ms
+        99.99%: 8.437 ms
+
+--- Static set = 30 GB (49.18 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      12
+  Static set:
+    Total size:      30.000 GB
+    Object count:    349.182 M
+
+Allocation speed:
+  Operations per second: 31.61 M/s
+  Bytes per second:      2.72 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              29.867 -> 50.754 GB
+  GC rate:               0.067 /s
+  Allocation rate:
+    Objects:             17.391 M/s, 15.892 M/s freed
+    Bytes:               1.929 GB/s
+  Global pauses:
+    % of time frozen:    6.082 %, 0.002 % as reported by runtime
+    # per second:        8479.392 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.007 ms
+        Max:    94.362 ms
+      Percentiles:
+        50%:    0.003 ms
+        90%:    0.009 ms
+        95%:    0.011 ms
+        99%:    0.016 ms
+        99.9%:  0.033 ms
+        99.99%: 9.727 ms
+
+--- Static set = 45 GB (73.77 % RAM) ---
+
+fatal error: runtime: out of memory
+
+runtime stack:
+runtime.throw(0x4f4df4, 0x16)
+	/usr/local/go/src/runtime/panic.go:608 +0x72
+runtime.sysMap(0xd1b0000000, 0x4c000000, 0x5cf0d8)
+	/usr/local/go/src/runtime/mem_linux.go:156 +0xc7
+runtime.(*mheap).sysAlloc(0x5b6a20, 0x4c000000, 0x0, 0x0)
+	/usr/local/go/src/runtime/malloc.go:619 +0x1c7
+runtime.(*mheap).grow(0x5b6a20, 0x24c5f, 0x0)
+	/usr/local/go/src/runtime/mheap.go:920 +0x42
+runtime.(*mheap).allocSpanLocked(0x5b6a20, 0x24c5f, 0x5cf0e8, 0x2031d800000000)
+	/usr/local/go/src/runtime/mheap.go:848 +0x337
+runtime.(*mheap).alloc_m(0x5b6a20, 0x24c5f, 0x410100, 0x7f944dd9c600)
+	/usr/local/go/src/runtime/mheap.go:692 +0x119
+runtime.(*mheap).alloc.func1()
+	/usr/local/go/src/runtime/mheap.go:759 +0x4c
+runtime.(*mheap).alloc(0x5b6a20, 0x24c5f, 0xc000010100, 0x413f55)
+	/usr/local/go/src/runtime/mheap.go:758 +0x8a
+runtime.largeAlloc(0x498be000, 0x440001, 0x7f949dd771c0)
+	/usr/local/go/src/runtime/malloc.go:1019 +0x97
+runtime.mallocgc.func1()
+	/usr/local/go/src/runtime/malloc.go:914 +0x46
+runtime.systemstack(0x0)
+	/usr/local/go/src/runtime/asm_amd64.s:351 +0x66
+runtime.mstart()
+	/usr/local/go/src/runtime/proc.go:1229
+
+goroutine 498 [running]:
+runtime.systemstack_switch()
+	/usr/local/go/src/runtime/asm_amd64.s:311 fp=0xc00014b608 sp=0xc00014b600 pc=0x4518b0
+runtime.mallocgc(0x498be000, 0x4c80e0, 0xc00014b601, 0x101)
+	/usr/local/go/src/runtime/malloc.go:913 +0x896 fp=0xc00014b6a8 sp=0xc00014b608 pc=0x40b366
+runtime.growslice(0x4c80e0, 0xcca8000000, 0x2739800, 0x2739800, 0x2739801, 0x0, 0x1f612aa, 0x2739800)
+	/usr/local/go/src/runtime/slice.go:204 +0x145 fp=0xc00014b710 sp=0xc00014b6a8 pc=0x43dbc5
+_/home/ubuntu/GCBurn/src/Go/burn_test.(*SetAllocator).Run(0xc0000bc3c0)
+	/home/ubuntu/GCBurn/src/Go/burn_test/set_allocator.go:26 +0x1d1 fp=0xc00014b7a8 sp=0xc00014b710 pc=0x4b0b91
+_/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run.func1(0x50abc0, 0xc0000bc3c0, 0xc0002da780)
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:35 +0x31 fp=0xc00014b7c8 sp=0xc00014b7a8 pc=0x4adad1
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1333 +0x1 fp=0xc00014b7d0 sp=0xc00014b7c8 pc=0x453811
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 1 [chan receive]:
+_/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run(0xc0014b2100, 0xc, 0x10, 0x41cdcd6500000000, 0x50ac20, 0xc0017941c0)
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:41 +0xd2
+_/home/ubuntu/GCBurn/src/Go/burn_test.(*BurnTester).TryInitialize(0xc000099d28)
+	/home/ubuntu/GCBurn/src/Go/burn_test/burn_tester.go:94 +0x33b
+_/home/ubuntu/GCBurn/src/Go/burn_test.(*BurnTester).Run(0xc000099d28)
+	/home/ubuntu/GCBurn/src/Go/burn_test/burn_tester.go:107 +0x59
+main.runBurnTest(0xc002494000, 0x28, 0xb40000000)
+	/home/ubuntu/GCBurn/src/Go/app.go:96 +0x2c4
+main.main()
+	/home/ubuntu/GCBurn/src/Go/app.go:74 +0xa3a
+
+goroutine 333 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 332 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 336 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 335 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 329 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 334 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 500 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 499 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 330 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 497 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+
+goroutine 331 [running]:
+	goroutine running on other thread; stack unavailable
+created by _/home/ubuntu/GCBurn/src/Go/common.ParallelRunner.Run
+	/home/ubuntu/GCBurn/src/Go/common/parallel_runner.go:34 +0xa0
+exit status 2
