@@ -2,19 +2,22 @@
 
 ./clean >/dev/null
 
-declare -a languages=("CSharp" "Go")
+OUTPUT_SUFFIX="Default"
 DURATION=120
-while getopts d: option
+
+declare -a languages=("CSharp" "Go")
+while getopts o:d: option
 do
 case "${option}"
 in
+o) OUTPUT_SUFFIX=${OPTARG};;
 d) DURATION=${OPTARG};;
 esac
 done
 
 for language in "${languages[@]}"
 do
-OUTPUT="../Output/$language/Output.txt"
+OUTPUT="../../results/$language-$OUTPUT_SUFFIX.txt"
 pushd $language >/dev/null
 
 echo Series: $language, writing output to $OUTPUT
