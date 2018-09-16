@@ -1,0 +1,558 @@
+Launch parameters: -l 3 -p f -r a -t 1
+Software:
+  Runtime:         Go
+    Version:       go1.10.1
+  OS:              Linux version 4.15.0-34-generic (buildd@lgw01-amd64-047) (gcc version 7.3.0 (Ubuntu 7.3.0-16ubuntu3)) #37-Ubuntu SMP Mon Aug 27 15:21:48 UTC 2018 amd64
+Hardware:
+  CPU:             Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz
+  CPU core count:  8, 1 used by test
+  RAM size:        31 GB
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 1
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 59.600 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 2
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 113.900 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 4
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 214.050 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 6
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 229.500 M/s
+
+--- Raw allocation (w/o holding what's allocated) ---
+
+Test settings:
+  Duration:     1 ms
+  Thread count: 8
+  Unit size:    16 B
+
+Allocation speed:
+  Operations per second: 282.650 M/s
+
+--- Static set = 0 GB (0.00 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      8
+  Static set:
+    Total size:      0.000 GB
+    Object count:    0.000 M
+
+Allocation speed:
+  Operations per second: 27.43 M/s
+  Bytes per second:      2.36 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              0.184 -> 0.226 GB
+  GC rate:               9.758 /s
+  Allocation rate:
+    Objects:             15.091 M/s, 15.088 M/s freed
+    Bytes:               1.674 GB/s
+  Global pauses:
+    % of time frozen:    0.436 %, 0.123 % as reported by runtime
+    # per second:        248.833 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.018 ms
+        Max:    3.975 ms
+      Percentiles:
+        50%:    0.007 ms
+        90%:    0.033 ms
+        95%:    0.098 ms
+        99%:    0.118 ms
+        99.9%:  0.151 ms
+        99.99%: 2.273 ms
+
+--- Static set = 1 GB (3.23 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      8
+  Static set:
+    Total size:      1.000 GB
+    Object count:    11.641 M
+
+Allocation speed:
+  Operations per second: 20.96 M/s
+  Bytes per second:      1.80 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              1.199 -> 2.099 GB
+  GC rate:               1.083 /s
+  Allocation rate:
+    Objects:             11.533 M/s, 11.469 M/s freed
+    Bytes:               1.279 GB/s
+  Global pauses:
+    % of time frozen:    16.564 %, 0.013 % as reported by runtime
+    # per second:        22743.317 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.007 ms
+        Max:    3.341 ms
+      Percentiles:
+        50%:    0.004 ms
+        90%:    0.018 ms
+        95%:    0.024 ms
+        99%:    0.036 ms
+        99.9%:  0.051 ms
+        99.99%: 0.785 ms
+
+--- Static set = 3 GB (9.68 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      8
+  Static set:
+    Total size:      3.000 GB
+    Object count:    34.921 M
+
+Allocation speed:
+  Operations per second: 20.49 M/s
+  Bytes per second:      1.76 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              3.050 -> 5.929 GB
+  GC rate:               0.408 /s
+  Allocation rate:
+    Objects:             11.273 M/s, 11.067 M/s freed
+    Bytes:               1.250 GB/s
+  Global pauses:
+    % of time frozen:    16.437 %, 0.005 % as reported by runtime
+    # per second:        26126.808 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.006 ms
+        Max:    13.664 ms
+      Percentiles:
+        50%:    0.003 ms
+        90%:    0.015 ms
+        95%:    0.021 ms
+        99%:    0.034 ms
+        99.9%:  0.048 ms
+        99.99%: 1.563 ms
+
+--- Static set = 7 GB (22.58 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      8
+  Static set:
+    Total size:      7.000 GB
+    Object count:    81.483 M
+
+Allocation speed:
+  Operations per second: 20.30 M/s
+  Bytes per second:      1.74 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19760.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              6.958 -> 14.359 GB
+  GC rate:               0.183 /s
+  Allocation rate:
+    Objects:             11.167 M/s, 10.636 M/s freed
+    Bytes:               1.238 GB/s
+  Global pauses:
+    % of time frozen:    15.602 %, 0.003 % as reported by runtime
+    # per second:        31258.150 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.005 ms
+        Max:    34.207 ms
+      Percentiles:
+        50%:    0.003 ms
+        90%:    0.010 ms
+        95%:    0.015 ms
+        99%:    0.029 ms
+        99.9%:  0.043 ms
+        99.99%: 0.288 ms
+
+--- Static set = 15 GB (48.39 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      8
+  Static set:
+    Total size:      15.000 GB
+    Object count:    174.586 M
+
+signal: killed
+--- Static set = 23 GB (74.19 % RAM) ---
+
+signal: killed
+--- Static set = 0 GB (0.00 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      6
+  Static set:
+    Total size:      0.000 GB
+    Object count:    0.000 M
+
+Allocation speed:
+  Operations per second: 24.35 M/s
+  Bytes per second:      2.09 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19456.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              0.141 -> 0.177 GB
+  GC rate:               11.217 /s
+  Allocation rate:
+    Objects:             13.394 M/s, 13.392 M/s freed
+    Bytes:               1.485 GB/s
+  Global pauses:
+    % of time frozen:    0.447 %, 0.123 % as reported by runtime
+    # per second:        261.625 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.017 ms
+        Max:    3.943 ms
+      Percentiles:
+        50%:    0.010 ms
+        90%:    0.037 ms
+        95%:    0.071 ms
+        99%:    0.117 ms
+        99.9%:  0.159 ms
+        99.99%: 0.239 ms
+
+--- Static set = 1 GB (3.23 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      6
+  Static set:
+    Total size:      1.000 GB
+    Object count:    11.633 M
+
+Allocation speed:
+  Operations per second: 19.61 M/s
+  Bytes per second:      1.68 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19456.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              1.136 -> 1.602 GB
+  GC rate:               1.067 /s
+  Allocation rate:
+    Objects:             10.785 M/s, 10.752 M/s freed
+    Bytes:               1.196 GB/s
+  Global pauses:
+    % of time frozen:    13.996 %, 0.015 % as reported by runtime
+    # per second:        18218.367 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.008 ms
+        Max:    2.073 ms
+      Percentiles:
+        50%:    0.005 ms
+        90%:    0.019 ms
+        95%:    0.026 ms
+        99%:    0.037 ms
+        99.9%:  0.052 ms
+        99.99%: 0.700 ms
+
+--- Static set = 3 GB (9.68 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      6
+  Static set:
+    Total size:      3.000 GB
+    Object count:    34.929 M
+
+Allocation speed:
+  Operations per second: 19.44 M/s
+  Bytes per second:      1.67 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19456.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              3.143 -> 5.812 GB
+  GC rate:               0.383 /s
+  Allocation rate:
+    Objects:             10.692 M/s, 10.501 M/s freed
+    Bytes:               1.186 GB/s
+  Global pauses:
+    % of time frozen:    14.903 %, 0.006 % as reported by runtime
+    # per second:        19358.308 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.008 ms
+        Max:    6.270 ms
+      Percentiles:
+        50%:    0.004 ms
+        90%:    0.019 ms
+        95%:    0.025 ms
+        99%:    0.036 ms
+        99.9%:  0.048 ms
+        99.99%: 1.276 ms
+
+--- Static set = 7 GB (22.58 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      6
+  Static set:
+    Total size:      7.000 GB
+    Object count:    81.477 M
+
+Allocation speed:
+  Operations per second: 19.38 M/s
+  Bytes per second:      1.67 GB/s
+  Allocation stats:
+    Size:
+      Min .. Max:
+        Min:    32.000 B
+        Avg:    92.250 B
+        Max:    131072.000 B
+      Percentiles:
+        50%:    40.000 B
+        90%:    120.000 B
+        95%:    144.000 B
+        99%:    376.000 B
+        99.9%:  5144.000 B
+        99.99%: 19456.000 B
+    Hold duration:
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    11.586 ms
+        Max:    40000.000 ms
+      Percentiles:
+        50%:    0.000 ms
+        90%:    0.000 ms
+        95%:    0.100 ms
+        99%:    100.000 ms
+        99.9%:  200.000 ms
+        99.99%: 20000.000 ms
+
+GC stats:
+  RAM used:              7.247 -> 7.954 GB
+  GC rate:               0.167 /s
+  Allocation rate:
+    Objects:             10.664 M/s, 10.613 M/s freed
+    Bytes:               1.183 GB/s
+  Global pauses:
+    % of time frozen:    11.362 %, 0.003 % as reported by runtime
+    # per second:        24456.475 /s
+      Min .. Max:
+        Min:    0.000 ms
+        Avg:    0.005 ms
+        Max:    11.620 ms
+      Percentiles:
+        50%:    0.003 ms
+        90%:    0.009 ms
+        95%:    0.013 ms
+        99%:    0.028 ms
+        99.9%:  0.043 ms
+        99.99%: 0.550 ms
+
+--- Static set = 15 GB (48.39 % RAM) ---
+
+Test settings:
+  Duration:          120 s
+  Thread count:      6
+  Static set:
+    Total size:      15.000 GB
+    Object count:    174.593 M
+
+signal: killed
+--- Static set = 23 GB (74.19 % RAM) ---
+
+signal: killed
