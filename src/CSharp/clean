@@ -1,5 +1,5 @@
 #! /bin/bash
 pushd "${0%/*}" >/dev/null
-rm -r App/bin
-rm -r App/obj
+rm -r App/bin 2>/dev/null
+rm -r App/obj 2>/dev/null
 popd >/dev/null

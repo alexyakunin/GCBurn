@@ -1,0 +1,36 @@
+#! /bin/bash
+
+./clean >/dev/null
+
+declare -a languages=("CSharp" "Go")
+DURATION=120
+while getopts d: option
+do
+case "${option}"
+in
+d) DURATION=${OPTARG};;
+esac
+done
+
+for language in "${languages[@]}"
+do
+OUTPUT="../Output/$language/Output.txt"
+pushd $language >/dev/null
+
+echo Series: $language, writing output to $OUTPUT
+echo
+./run -l 3 -p f -r a -t 1 | tee $OUTPUT
+./run -l 3 -p m -r a -t 25pct | tee -a $OUTPUT
+./run -l 3 -p m -r a -t 50pct | tee -a $OUTPUT
+./run -l 3 -p m -r a -t 75pct | tee -a $OUTPUT
+./run -l 3 -p m -r a | tee -a $OUTPUT
+
+./run -l 3 -p m -r b -d $DURATION -m 0 | tee -a $OUTPUT
+./run -l 3 -p m -r b -d $DURATION -m 1 | tee -a $OUTPUT
+./run -l 3 -p m -r b -d $DURATION -m 10pct | tee -a $OUTPUT
+./run -l 3 -p m -r b -d $DURATION -m 25pct | tee -a $OUTPUT
+./run -l 3 -p m -r b -d $DURATION -m 50pct | tee -a $OUTPUT
+
+popd >/dev/null
+done
+
