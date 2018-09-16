@@ -9,14 +9,14 @@ namespace GCBurn.SpeedTest
 {
     public class SpeedTester
     {
-        public const int PassCount = 10;
+        public const int PassCount = 30;
         public static TimeSpan DefaultDuration = TimeSpan.FromMilliseconds(1);
         public TimeSpan Duration = DefaultDuration;
         public IndentedTextWriter Writer = new IndentedTextWriter(Console.Out, "  ");
         
         public static SpeedTester New() => new SpeedTester();
         public static SpeedTester NewWarmup() => new SpeedTester() {
-            Duration = TimeSpan.FromSeconds(1), 
+            Duration = TimeSpan.FromMilliseconds(5), 
             Writer = new IndentedTextWriter(TextWriter.Null),
         };
         
