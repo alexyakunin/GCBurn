@@ -1,5 +1,6 @@
 # IDE folders & files
 .vs/
+.vscode/
 .idea/
 .user
 .suo
