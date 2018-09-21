@@ -1,13 +1,13 @@
 #! /bin/bash
 pushd "${0%/*}" >/dev/null
 
-pushd Go >/dev/null
+pushd CSharp >/dev/null
 ./run $@
 popd >/dev/null
 
 printf "\n"
 
-pushd CSharp >/dev/null
+pushd Go >/dev/null
 ./run $@
 popd >/dev/null
 

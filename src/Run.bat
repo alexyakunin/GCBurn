@@ -1,13 +1,13 @@
 @echo off
 pushd "%~dp0"
 
-pushd Go
+pushd CSharp
 call Run.bat %*
 popd
 
 echo.
 
-pushd CSharp
+pushd Go
 call Run.bat %*
 popd
 
