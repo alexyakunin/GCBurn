@@ -87,10 +87,10 @@ namespace GCBurn.BurnTest
         {
             TryInitialize();
             
-            var duration = Duration.TotalSeconds;
+            var testDuration = Duration.TotalSeconds;
             var threadCount = ParallelRunner.ThreadCount;
             using (Writer.Section($"Test settings:")) {
-                Writer.AppendMetric("Duration", duration, "s");
+                Writer.AppendMetric("Duration", testDuration, "s");
                 Writer.AppendMetric("Thread count", threadCount, "");
                 using (Writer.Section($"Static set:")) {
                     Writer.AppendMetric("Total size", StaticSetSize / Sizes.GB, "GB");
@@ -121,6 +121,7 @@ namespace GCBurn.BurnTest
 
             // Computing thread & global pauses
             var allPauses = allocators.SelectMany(a => a.GCPauses);
+            var duration = allPauses.Max(p => p.End) / 1000; // In seconds (as testDuration)
             var threadPauses = allocators
                 .Select(a => a.GCPauses
                     .Select(p => p.Size)
