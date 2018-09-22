@@ -18,6 +18,7 @@ type GarbageAllocator struct {
 	AllocationCount int64
 	ByteCount       int64
 	GCPauses        []Interval
+	EndTimestamp    int64
 }
 
 type AllocationInfo struct {
@@ -92,5 +93,6 @@ func (a *GarbageAllocator) Run() {
 		}
 		lastTimestamp = elapsed
 	}
+	a.EndTimestamp = Nanotime().Nanoseconds()
 	a.GCPauses = gcPauses
 }

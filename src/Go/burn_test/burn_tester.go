@@ -137,10 +137,16 @@ func (t *BurnTester) Run() {
 	}
 
 	const NanoToMilliseconds = 1000 / Giga // ns to ms
+	const NanoToSeconds = 1 / Giga         // ns to ms
 
 	// Normalizing GCPauses; nanoseconds to milliseconds and a bit more
 	var pauses [][]Interval
+	var duration float64
 	for _, a := range allocators {
+		d := (float64(a.EndTimestamp) - startTime) * NanoToSeconds
+		if duration < d {
+			duration = d
+		}
 		for j := range a.GCPauses {
 			a.GCPauses[j].Start = (a.GCPauses[j].Start - startTime) * NanoToMilliseconds
 			a.GCPauses[j].End = (a.GCPauses[j].End - startTime - 0.5) * NanoToMilliseconds
@@ -154,15 +160,10 @@ func (t *BurnTester) Run() {
 	}
 	var globalPauses []float64
 	var globalPausesSum float64
-	var duration float64
 	for _, p := range intersections {
 		globalPauses = append(globalPauses, p.End-p.Start)
 		globalPausesSum += p.End - p.Start
-		if duration < p.End {
-			duration = p.End
-		}
 	}
-	duration /= 1000
 	var allocationSizes []float64
 	var allocationHoldDurations []float64
 	for _, a := range allocators {
