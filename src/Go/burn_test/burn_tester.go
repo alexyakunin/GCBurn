@@ -20,13 +20,13 @@ const AllocationSequenceLength = 1 << 20 // 2^20, i.e. ~ 1M items; must be a pow
 var MinGCPause = time.Duration(10 * time.Microsecond).Nanoseconds()
 var DefaultDuration = time.Duration(10 * time.Second)
 var DefaultMaxTime = float64(1000) * TimeSamplerFrequency // 1000 seconds
-var DefaultMaxSize = float64(1 << 17) // 128KB
+var DefaultMaxSize = float64(1 << 17)                     // 128KB
 
 type BurnTester struct {
 	NoOutput       bool
 	Duration       time.Duration
-	MaxTime		   float64
-	MaxSize		   float64
+	MaxTime        float64
+	MaxSize        float64
 	StaticSetSize  int64
 	Allocations    []AllocationInfo
 	StartIndexes   []int32
@@ -41,7 +41,7 @@ func NewBurnTester(staticSetSize int64) *BurnTester {
 		NoOutput:       false,
 		Duration:       DefaultDuration,
 		MaxTime:        DefaultMaxTime,
-		MaxSize:		DefaultMaxSize,
+		MaxSize:        DefaultMaxSize,
 		StaticSetSize:  staticSetSize,
 		Allocations:    make([]AllocationInfo, AllocationSequenceLength),
 		StartIndexes:   make([]int32, AllocationSequenceLength),
@@ -106,10 +106,10 @@ func (t *BurnTester) TryInitialize() {
 func (t *BurnTester) Run() {
 	t.TryInitialize()
 
-	duration := t.Duration.Seconds()
+	testDuration := t.Duration.Seconds()
 	if !t.NoOutput {
 		fmt.Printf("Test settings:\n")
-		fmt.Printf("  Duration:          %v s\n", int(duration))
+		fmt.Printf("  Duration:          %v s\n", int(testDuration))
 		fmt.Printf("  Thread count:      %v\n", ThreadCount)
 		fmt.Printf("  Static set:\n")
 		fmt.Printf("    Total size:      %.3f GB\n", float64(t.StaticSetSize)/GB)
@@ -144,9 +144,9 @@ func (t *BurnTester) Run() {
 		for j := range a.GCPauses {
 			a.GCPauses[j].Start = (a.GCPauses[j].Start - startTime) * NanoToMilliseconds
 			a.GCPauses[j].End = (a.GCPauses[j].End - startTime - 0.5) * NanoToMilliseconds
-
 		}
-		pauses = append(pauses, ToCanonicalSorted(a.GCPauses))
+		a.GCPauses = ToCanonicalSorted(a.GCPauses)
+		pauses = append(pauses, a.GCPauses)
 	}
 	var intersections = pauses[0]
 	for _, p := range pauses {
@@ -154,10 +154,15 @@ func (t *BurnTester) Run() {
 	}
 	var globalPauses []float64
 	var globalPausesSum float64
+	var duration float64
 	for _, p := range intersections {
 		globalPauses = append(globalPauses, p.End-p.Start)
 		globalPausesSum += p.End - p.Start
+		if duration < p.End {
+			duration = p.End
+		}
 	}
+	duration /= 1000
 	var allocationSizes []float64
 	var allocationHoldDurations []float64
 	for _, a := range allocators {

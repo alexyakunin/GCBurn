@@ -38,9 +38,6 @@ func (i Interval) Intersect(j Interval) Interval {
 }
 
 func ToCanonicalSorted(in []Interval) (out []Interval) {
-	if in == nil {
-		return nil
-	}
 	last := in[0]
 	for _, i := range in {
 		if last.Start > i.Start && !last.IsEmpty() && !i.IsEmpty() {
