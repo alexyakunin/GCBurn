@@ -107,6 +107,8 @@ namespace GCBurn.BurnTest
 
             Writer.AppendLine();
 
+            var ticksToSeconds = 1.0 / Stopwatch.Frequency;
+            var duration = (allocators.Max(a => a.EndTimestamp) - startTimestamp) * ticksToSeconds; 
             // Normalizing GCPauses (converting time to ms, removing offset)
             var ticksToMilliseconds = 1000.0 / Stopwatch.Frequency;
             foreach (var a in allocators) {
@@ -121,7 +123,6 @@ namespace GCBurn.BurnTest
 
             // Computing thread & global pauses
             var allPauses = allocators.SelectMany(a => a.GCPauses);
-            var duration = allPauses.Max(p => p.End) / 1000; // In seconds (as testDuration)
             var threadPauses = allocators
                 .Select(a => a.GCPauses
                     .Select(p => p.Size)

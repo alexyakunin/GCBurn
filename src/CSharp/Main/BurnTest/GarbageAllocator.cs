@@ -24,7 +24,8 @@ namespace GCBurn.BurnTest
         // Statistics
         public long AllocationCount;
         public long ByteCount;
-        public List<Interval> GCPauses; 
+        public List<Interval> GCPauses;
+        public long EndTimestamp;
 
         public GarbageAllocator(TimeSpan runDuration, (int, sbyte, sbyte)[] allocations, int startIndex)
         {
@@ -79,6 +80,7 @@ namespace GCBurn.BurnTest
                     gcPauses.Add(new Interval(lastTimestamp, elapsed));
                 lastTimestamp = elapsed;
             }
+            EndTimestamp = Stopwatch.GetTimestamp();
         }
     }
 }
