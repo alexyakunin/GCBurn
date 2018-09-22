@@ -174,7 +174,7 @@ func (t *BurnTester) Run() {
 		}
 	}
 
-	fmt.Printf("Actual duration:         %.2f s\n", duration)
+	fmt.Printf("Actual duration:         %.3f s\n", duration)
 	fmt.Printf("Allocation speed:\n")
 	var ops, bytes int64
 	for _, a := range allocators {
