@@ -173,6 +173,7 @@ func (t *BurnTester) Run() {
 		}
 	}
 
+	fmt.Printf("Actual duration:         %.2f s\n", duration)
 	fmt.Printf("Allocation speed:\n")
 	var ops, bytes int64
 	for _, a := range allocators {
@@ -200,6 +201,7 @@ func (t *BurnTester) Run() {
 		globalPausesSum/1000/duration*100,
 		float64(msPost.PauseTotalNs-msPre.PauseTotalNs)/Giga/duration*100)
 	fmt.Printf("    # per second:        %.3f /s\n", float64(len(globalPauses))/duration)
+	fmt.Printf("    Pause duration:\n")
 	DumpArrayStats(globalPauses, "ms", "      ", true)
 	fmt.Println()
 }

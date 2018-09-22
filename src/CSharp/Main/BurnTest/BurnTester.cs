@@ -151,6 +151,7 @@ namespace GCBurn.BurnTest
                 .OrderBy(s => s)
                 .ToArray();
 
+            Writer.AppendMetric("Actual duration", duration, "s");
             using (Writer.Section($"Allocation speed:")) {
                 Writer.AppendMetric("Operations per second", allocators.Sum(a => a.AllocationCount) / duration / Sizes.Mega, "M/s");
                 Writer.AppendMetric("Bytes per second", allocators.Sum(a => a.ByteCount)  / duration / Sizes.GB, "GB/s");
