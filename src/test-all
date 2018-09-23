@@ -1,47 +1,71 @@
 #! /bin/bash
 
+usage() { echo "Usage: $0 [-o <output_suffix_string>] [-d <duration_seconds>]" 1>&2; exit 1; }
+
 ./clean >/dev/null
 
 OUTPUT_SUFFIX="Default"
 DURATION=120
 
-declare -a languages=("CSharp" "Go")
-while getopts o:d: option
-do
-case "${option}"
-in
+while getopts ":o:d:" o; do
+case "${o}" in
 o) OUTPUT_SUFFIX=${OPTARG};;
 d) DURATION=${OPTARG};;
+*) usage;;
 esac
 done
+shift $((OPTIND -1))
 
-for language in "${languages[@]}"
-do
-OUTPUT="../../results/$language-$OUTPUT_SUFFIX.txt"
-pushd $language >/dev/null
-echo Series: $language, writing output to $OUTPUT
-echo
+function runVariant() {
+  local OPTIND o
+  local language runner variant lmode
 
-./run -l 3 -p f -r a -t 1 2>&1 | tee $OUTPUT || true
-./run -l 3 -p m -r a -t 25pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r a -t 50pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r a -t 75pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r a 2>&1 | tee -a $OUTPUT || true
+  language=$1
+  pushd $language >/dev/null
+  shift
 
-./run -l 3 -p m -r b -d $DURATION -m 0 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -d $DURATION -m 1 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -d $DURATION -m 10pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -d $DURATION -m 25pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -d $DURATION -m 50pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -d $DURATION -m 75pct 2>&1 | tee -a $OUTPUT || true
+  runner=./run
+  variant=$language
+  lmode=3
 
-./run -l 3 -p m -r b -t 75pct -d $DURATION -m 0 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -t 75pct -d $DURATION -m 1 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -t 75pct -d $DURATION -m 10pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -t 75pct -d $DURATION -m 25pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -t 75pct -d $DURATION -m 50pct 2>&1 | tee -a $OUTPUT || true
-./run -l 3 -p m -r b -t 75pct -d $DURATION -m 75pct 2>&1 | tee -a $OUTPUT || true
+  while getopts ":l:r:v:" o; do
+  case "${o}" in
+  l) lmode=${OPTARG};;
+  r) runner=${OPTARG};;
+  v) variant=${OPTARG};;
+  esac
+  done
+  shift $((OPTIND -1))
 
-popd >/dev/null
-done
+  OUTPUT="../../results/$variant-$OUTPUT_SUFFIX.txt"
+  echo Series: $variant, writing output to $OUTPUT
+  echo
+
+  $runner -l $lmode -p f -r a -t 1 2>&1 | tee $OUTPUT || true
+  $runner -l $lmode -p m -r a -t 25pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r a -t 50pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r a -t 75pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r a 2>&1 | tee -a $OUTPUT || true
+
+  $runner -l $lmode -p m -r b -d $DURATION -m 0 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -d $DURATION -m 1 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -d $DURATION -m 10pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -d $DURATION -m 25pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -d $DURATION -m 50pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -d $DURATION -m 75pct 2>&1 | tee -a $OUTPUT || true
+
+  $runner -l $lmode -p m -r b -t 75pct -d $DURATION -m 0 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -t 75pct -d $DURATION -m 1 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -t 75pct -d $DURATION -m 10pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -t 75pct -d $DURATION -m 25pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -t 75pct -d $DURATION -m 50pct 2>&1 | tee -a $OUTPUT || true
+  $runner -l $lmode -p m -r b -t 75pct -d $DURATION -m 75pct 2>&1 | tee -a $OUTPUT || true
+
+  popd >/dev/null
+}
+
+runVariant CSharp
+runVariant CSharp -l 0 -v CSharp-Batch
+runVariant CSharp -r ./run-wgc -v CSharp-WorkstationGC
+runVariant Go
 
