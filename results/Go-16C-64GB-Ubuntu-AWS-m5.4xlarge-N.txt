@@ -312,6 +312,7 @@ Test settings:
     Object count:    349.175 M
 
 signal: killed
+
 --- Static set = 45 GB (73.77 % RAM) ---
 
 Test settings:
@@ -322,6 +323,7 @@ Test settings:
     Object count:    523.775 M
 
 signal: killed
+
 --- Static set = 0 GB (0.00 % RAM) ---
 
 Test settings:

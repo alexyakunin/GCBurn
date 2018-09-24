@@ -312,134 +312,15 @@ Test settings:
     Object count:    360.831 M
 
 signal: killed
+
 --- Static set = 47 GB (74.60 % RAM) ---
 
 fatal error: runtime: cannot allocate memory
 
-runtime stack:
-runtime.throw(0x4f3ca4, 0x1f)
-	/usr/lib/go-1.10/src/runtime/panic.go:616 +0x81
-runtime.persistentalloc1(0x4000, 0x0, 0x59ff38, 0xc420143d88)
-	/usr/lib/go-1.10/src/runtime/malloc.go:997 +0x27f
-runtime.persistentalloc.func1()
-	/usr/lib/go-1.10/src/runtime/malloc.go:950 +0x45
-runtime.persistentalloc(0x4000, 0x0, 0x59ff38, 0x5880e8)
-	/usr/lib/go-1.10/src/runtime/malloc.go:949 +0x82
-runtime.(*fixalloc).alloc(0x58adb0, 0x1)
-	/usr/lib/go-1.10/src/runtime/mfixalloc.go:80 +0x108
-runtime.(*mheap).allocSpanLocked(0x5878e0, 0x1, 0x59ff08, 0x7fc50ca64e58)
-	/usr/lib/go-1.10/src/runtime/mheap.go:845 +0x15c
-runtime.(*mheap).alloc_m(0x5878e0, 0x1, 0xc420150009, 0x7fc50ca64e58)
-	/usr/lib/go-1.10/src/runtime/mheap.go:686 +0x118
-runtime.(*mheap).alloc.func1()
-	/usr/lib/go-1.10/src/runtime/mheap.go:753 +0x4d
-runtime.(*mheap).alloc(0x5878e0, 0x1, 0x7fc50c010009, 0x7fc50ca64e58)
-	/usr/lib/go-1.10/src/runtime/mheap.go:752 +0x8a
-runtime.(*mcentral).grow(0x588e70, 0x0)
-	/usr/lib/go-1.10/src/runtime/mcentral.go:232 +0x94
-runtime.(*mcentral).cacheSpan(0x588e70, 0x0)
-	/usr/lib/go-1.10/src/runtime/mcentral.go:106 +0x2e4
-runtime.(*mcache).refill(0x7fc531376b20, 0xc42002f409)
-	/usr/lib/go-1.10/src/runtime/mcache.go:123 +0x9c
-runtime.(*mcache).nextFree.func1()
-	/usr/lib/go-1.10/src/runtime/malloc.go:556 +0x32
-runtime.systemstack(0x0)
-	/usr/lib/go-1.10/src/runtime/asm_amd64.s:409 +0x79
-runtime.mstart()
-	/usr/lib/go-1.10/src/runtime/proc.go:1175
+...
 
-goroutine 502 [running]:
-runtime.systemstack_switch()
-	/usr/lib/go-1.10/src/runtime/asm_amd64.s:363 fp=0xc42051b5e8 sp=0xc42051b5e0 pc=0x44f320
-runtime.(*mcache).nextFree(0x7fc531376b20, 0x9, 0x0, 0x7fc50ca64e58, 0x423b1e)
-	/usr/lib/go-1.10/src/runtime/malloc.go:555 +0xa9 fp=0xc42051b640 sp=0xc42051b5e8 pc=0x40dc79
-runtime.mallocgc(0x30, 0x4c7060, 0x1, 0x24)
-	/usr/lib/go-1.10/src/runtime/malloc.go:710 +0x79f fp=0xc42051b6e0 sp=0xc42051b640 pc=0x40e5cf
-runtime.makeslice(0x4c7060, 0x5, 0x5, 0x59f078, 0x0, 0x0)
-	/usr/lib/go-1.10/src/runtime/slice.go:61 +0x77 fp=0xc42051b710 sp=0xc42051b6e0 pc=0x43c4e7
-_/home/alex/Projects/GCBurn/src/Go/burn_test.CreateGarbage(...)
-	/home/alex/Projects/GCBurn/src/Go/burn_test/garbage_allocator.go:54
-_/home/alex/Projects/GCBurn/src/Go/burn_test.(*SetAllocator).Run(0xc4200b0640)
-	/home/alex/Projects/GCBurn/src/Go/burn_test/set_allocator.go:26 +0xf8 fp=0xc42051b7a8 sp=0xc42051b710 pc=0x4ae6d8
-_/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run.func1(0x5040e0, 0xc4200b0640, 0xc422eb1f80)
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:35 +0x31 fp=0xc42051b7c8 sp=0xc42051b7a8 pc=0x4ab4f1
-runtime.goexit()
-	/usr/lib/go-1.10/src/runtime/asm_amd64.s:2361 +0x1 fp=0xc42051b7d0 sp=0xc42051b7c8 pc=0x451c71
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 1 [chan receive]:
-_/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run(0xc42172c100, 0xc, 0x10, 0x41cdcd6500000000, 0x504140, 0xc423431040)
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:41 +0xc1
-_/home/alex/Projects/GCBurn/src/Go/burn_test.(*BurnTester).TryInitialize(0xc4200ddcf8)
-	/home/alex/Projects/GCBurn/src/Go/burn_test/burn_tester.go:94 +0x31a
-_/home/alex/Projects/GCBurn/src/Go/burn_test.(*BurnTester).Run(0xc4200ddcf8)
-	/home/alex/Projects/GCBurn/src/Go/burn_test/burn_tester.go:107 +0x59
-main.runBurnTest(0xc4229d3cb0, 0x28, 0xbc0000000)
-	/home/alex/Projects/GCBurn/src/Go/app.go:96 +0x2a5
-main.main()
-	/home/alex/Projects/GCBurn/src/Go/app.go:74 +0xa83
-
-goroutine 144 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 497 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 499 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 501 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 142 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 140 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 500 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 498 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 143 [runnable]:
-_/home/alex/Projects/GCBurn/src/Go/burn_test.CreateGarbage(...)
-	/home/alex/Projects/GCBurn/src/Go/burn_test/garbage_allocator.go:54
-_/home/alex/Projects/GCBurn/src/Go/burn_test.(*SetAllocator).Run(0xc4200b0480)
-	/home/alex/Projects/GCBurn/src/Go/burn_test/set_allocator.go:26 +0xf8
-_/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run.func1(0x5040e0, 0xc4200b0480, 0xc422eb1f80)
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:35 +0x31
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 141 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
-
-goroutine 139 [running]:
-	goroutine running on other thread; stack unavailable
-created by _/home/alex/Projects/GCBurn/src/Go/common.ParallelRunner.Run
-	/home/alex/Projects/GCBurn/src/Go/common/parallel_runner.go:34 +0x85
 exit status 2
+
 --- Static set = 0 GB (0.00 % RAM) ---
 
 Test settings:
