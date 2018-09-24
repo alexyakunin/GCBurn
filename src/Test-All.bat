@@ -26,35 +26,44 @@ exit 1
 )
 :parsed
 
-call :run CSharp
-call :run Go
+call :run CSharp CSharp
+call :run CSharp-Batch CSharp run 0
+call :run CSharp-WorkstationGC CSharp run-wgc
+call :run Go Go
 goto :eof
 
 :run
-pushd %1
-set OUTPUT='../../results/%1-%OUTPUT_SUFFIX%.txt'
-echo Series: %1, writing output to %OUTPUT%
+set variant=%1
+set language=%2
+set runner=%3
+if "%runner%"=="" set runner=run
+set lmode=%4
+if "%lmode%"=="" set lmode=3
+set output='../../results/%variant%-%OUTPUT_SUFFIX%.txt'
+
+pushd %language%
+echo Series: %variant%, writing output to %output%
 echo.
 
-powershell -c "cmd /C run -l 3 -p f -r a -t 1 2>&1 | tee %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a -t 25pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a -t 50pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a -t 75pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r a 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C %runner% -l %lmode% -p f -r a -t 1 2>&1 | tee %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r a -t 25pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r a -t 50pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r a -t 75pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r a 2>&1 | tee -a %output%"
 
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 0 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 1 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 10pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 25pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 50pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -d %DURATION% -m 75pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -d %DURATION% -m 0 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -d %DURATION% -m 1 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -d %DURATION% -m 10pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -d %DURATION% -m 25pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -d %DURATION% -m 50pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -d %DURATION% -m 75pct 2>&1 | tee -a %output%"
 
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 0 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 1 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 10pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 25pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 50pct 2>&1 | tee -a %OUTPUT%"
-powershell -c "cmd /C run -l 3 -p m -r b -t 75pct -d %DURATION% -m 75pct 2>&1 | tee -a %OUTPUT%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -t 75pct -d %DURATION% -m 0 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -t 75pct -d %DURATION% -m 1 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -t 75pct -d %DURATION% -m 10pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -t 75pct -d %DURATION% -m 25pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -t 75pct -d %DURATION% -m 50pct 2>&1 | tee -a %output%"
+powershell -c "cmd /C %runner% -l %lmode% -p m -r b -t 75pct -d %DURATION% -m 75pct 2>&1 | tee -a %output%"
 
 popd
 goto :eof
