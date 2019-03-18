@@ -2,7 +2,7 @@
 .vs/
 .vscode/
 .idea/
-.user
+*.user
 .suo
 .cache
 
