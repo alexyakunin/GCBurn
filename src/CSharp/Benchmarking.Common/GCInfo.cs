@@ -18,10 +18,12 @@ namespace Benchmarking.Common
 
         public static string GetGCMode()
         {
+            var isGCLargePagesOn = Environment.GetEnvironmentVariable("COMPlus_GCLargePages") == "1";
             var sb = new StringBuilder();
             sb.Append(GCSettings.IsServerGC ? "Server" : "Workstation").Append(" GC, ");
             sb.Append($"Latency mode: {GCSettings.LatencyMode}, ");
             sb.Append($"LOH compaction mode: {GCSettings.LargeObjectHeapCompactionMode}, ");
+            sb.Append($"Large pages: {(isGCLargePagesOn ? "enabled" : "disabled")}, ");
             sb.Append($"Generations: 0..{GC.MaxGeneration}");
             return sb.ToString();
         }

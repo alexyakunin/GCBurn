@@ -26,10 +26,10 @@ exit 1
 )
 :parsed
 
-call :run CSharp CSharp
-call :run CSharp-Batch CSharp run 0
-call :run CSharp-WorkstationGC CSharp run-wgc
 call :run Go Go
+call :run CSharp CSharp
+rem call :run CSharp-Batch CSharp run 0
+rem call :run CSharp-WorkstationGC CSharp run-wgc
 goto :eof
 
 :run
