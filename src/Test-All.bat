@@ -26,8 +26,8 @@ exit 1
 )
 :parsed
 
-call :run Go Go
 call :run CSharp CSharp
+call :run Go Go
 rem call :run CSharp-Batch CSharp run 0
 rem call :run CSharp-WorkstationGC CSharp run-wgc
 goto :eof
