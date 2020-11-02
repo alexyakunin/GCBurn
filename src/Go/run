@@ -1,4 +1,5 @@
 #! /bin/bash
 pushd "${0%/*}" >/dev/null
+export GOGC=70
 go run app.go $@
 popd >/dev/null
