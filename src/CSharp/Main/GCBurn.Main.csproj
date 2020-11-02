@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net50</TargetFramework>
     <LangVersion>latest</LangVersion>
     <AssemblyName>GCBurn.Main</AssemblyName>
     <RootNamespace>GCBurn</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="4.1.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0-preview.220" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Benchmarking.Common\Benchmarking.Common.csproj" />
