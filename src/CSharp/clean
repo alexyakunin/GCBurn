@@ -2,4 +2,10 @@
 pushd "${0%/*}" >/dev/null
 rm -r App/bin 2>/dev/null
 rm -r App/obj 2>/dev/null
+rm -r Main/bin 2>/dev/null
+rm -r Main/obj 2>/dev/null
+rm -r Benchmarking.Common/bin 2>/dev/null
+rm -r Benchmarking.Common/obj 2>/dev/null
+rm -r Tests/bin 2>/dev/null
+rm -r Tests/obj 2>/dev/null
 popd >/dev/null
