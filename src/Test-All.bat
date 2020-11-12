@@ -28,8 +28,6 @@ exit 1
 
 call :run CSharp CSharp
 call :run Go Go
-rem call :run CSharp-Batch CSharp run 0
-rem call :run CSharp-WorkstationGC CSharp run-wgc
 goto :eof
 
 :run
@@ -38,7 +36,7 @@ set language=%2
 set runner=%3
 if "%runner%"=="" set runner=run
 set lmode=%4
-if "%lmode%"=="" set lmode=3
+if "%lmode%"=="" set lmode=1
 set output='../../results/%variant%-%OUTPUT_SUFFIX%.txt'
 
 pushd %language%
