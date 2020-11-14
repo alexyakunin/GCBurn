@@ -3,6 +3,7 @@ pushd "%~dp0"
 
 rem JIT settings
 set COMPlus_TieredCompilation=1
+set COMPlus_TC_QuickJitForLoops=0
 rem set COMPlus_ReadyToRun=0
 
 rem GC settings

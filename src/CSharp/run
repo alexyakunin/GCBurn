@@ -3,6 +3,7 @@ pushd "${0%/*}" >/dev/null
 
 # JIT settings
 export COMPlus_TieredCompilation=1
+export COMPlus_TC_QuickJitForLoops=0
 # export COMPlus_ReadyToRun=0
 
 # GC settings
