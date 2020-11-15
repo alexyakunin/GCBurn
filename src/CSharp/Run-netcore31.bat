@@ -26,5 +26,5 @@ set COMPlus_GCConfigLogFile=C:\Temp\GCConfig.log
 set COMPlus_GCMixLog=C:\Temp\GCMix.log
 :skipLogging
 
-dotnet run -p App\GCBurn.App.csproj -c Release -f net5.0 -- %*
+dotnet run -p App\GCBurn.App.csproj -c Release -f netcoreapp3.1 -- %*
 popd

@@ -18,14 +18,14 @@ shift $((OPTIND -1))
 
 function runVariant() {
   local OPTIND o
-  local language runner variant lmode
+  local folder lmode runner variant
 
-  language=$1
-  pushd $language >/dev/null
+  folder=$1
+  pushd $folder >/dev/null
   shift
 
   runner=./run
-  variant=$language
+  variant=$folder
   lmode=1
 
   while getopts ":l:r:v:" o; do
@@ -64,8 +64,6 @@ function runVariant() {
   popd >/dev/null
 }
 
-runVariant CSharp
-runVariant CSharp -l 0 -v CSharp-Batch
-runVariant CSharp -r ./run-wgc -v CSharp-WorkstationGC
+runVariant CSharp -v CSharp-Net50
+runVariant CSharp -r ./run-netcore31 -v CSharp-Net31
 runVariant Go
-

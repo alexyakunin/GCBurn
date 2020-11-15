@@ -26,20 +26,21 @@ exit 1
 )
 :parsed
 
-call :run CSharp CSharp
+call :run CSharp-Net50 CSharp
+call :run CSharp-Net31 CSharp Run-netcore31.bat
 call :run Go Go
 goto :eof
 
 :run
 set variant=%1
-set language=%2
+set folder=%2
 set runner=%3
-if "%runner%"=="" set runner=run
+if "%runner%"=="" set runner=Run
 set lmode=%4
 if "%lmode%"=="" set lmode=1
 set output='../../results/%variant%-%OUTPUT_SUFFIX%.txt'
 
-pushd %language%
+pushd %folder%
 echo Series: %variant%, writing output to %output%
 echo.
 
